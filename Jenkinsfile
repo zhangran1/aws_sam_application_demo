@@ -5,7 +5,7 @@ pipeline {
 
     environment {
         AWS_DEFAULT_REGION = "ap-southeast-1"
-        PATH = "/opt/sonar-scanner/bin:/usr/bin:/home/jenkins/.local/bin:/usr/local/bin:/var/lib/jenkins/sam-venv/${BUILD_TAG}/bin:$PATH"
+        PATH = "/opt/sonar-scanner/bin:/usr/bin:/home/jenkins/.local/bin:/usr/local/bin:/var/lib/jenkins/sam-venv/bin:$PATH"
         SONARQUBE_CREDS = credentials('tech-hunt-token') //sonarqube token  tbd
         SONARQUBE_KEY = credentials('tech-hunt')     //sonarqube key tbd
         SONARQUBE_URL = credentials('SonarQube_URL')     //sonarqube url
@@ -21,8 +21,8 @@ pipeline {
             steps {
                 sh '''
                     mkdir -p /var/lib/jenkins/sam-venv
-                    python3.7 -m venv /var/lib/jenkins/sam-venv/${BUILD_TAG}
-                    source /var/lib/jenkins/sam-venv/${BUILD_TAG}/bin/activate
+                    python3.7 -m venv /var/lib/jenkins/sam-venv/
+                    source /var/lib/jenkins/sam-venv/bin/activate
                     pip3 install -r ${SOURCE_CODE_FOLDER}/requirements.txt
                     pip3 install requests pytest pytest-mock pytest-cov radon pylint awscli aws-sam-cli boto3 mock moto
                 '''
@@ -33,7 +33,7 @@ pipeline {
             steps {
                 withAWS(credentials: 'AWSCredentials') {
                     sh '''
-                        source /var/lib/jenkins/sam-venv/${BUILD_TAG}/bin/activate
+                        source /var/lib/jenkins/sam-venv/bin/activate
                         pytest -v --cov-report xml --cov=${SOURCE_CODE_FOLDER} --cov=tests.unit tests/
 
                     '''
@@ -51,7 +51,7 @@ pipeline {
             steps {
                 echo "Raw metrics"
                 sh '''
-                    source /var/lib/jenkins/sam-venv/${BUILD_TAG}/bin/activate
+                    source /var/lib/jenkins/sam-venv/bin/activate
                     radon raw --json ${SOURCE_CODE_FOLDER} > raw_report.json
                     radon cc --json ${SOURCE_CODE_FOLDER} > cc_report.json
                     radon mi --json ${SOURCE_CODE_FOLDER} > mi_report.json
@@ -62,7 +62,7 @@ pipeline {
 
                 echo "PEP8 style check"
                 sh '''
-                    source /var/lib/jenkins/sam-venv/${BUILD_TAG}/bin/activate
+                    source /var/lib/jenkins/sam-venv/bin/activate
                     pylint --disable=C ${SOURCE_CODE_FOLDER} || true
                 '''
             }
@@ -94,7 +94,7 @@ pipeline {
                 withAWS(credentials: 'AWSCredentials') {
                     timeout(time: 5, unit: 'MINUTES') {
                         sh '''
-                            source /var/lib/jenkins/sam-venv/${BUILD_TAG}/bin/activate
+                            source /var/lib/jenkins/sam-venv/bin/activate
                             cd tests/.api_test/
                             sh test.sh
                         '''
@@ -111,7 +111,7 @@ pipeline {
                 withAWS(credentials: 'AWSCredentials') {
                     timeout(time: 5, unit: 'MINUTES') {
                         sh '''
-                            source /var/lib/jenkins/sam-venv/${BUILD_TAG}/bin/activate
+                            source /var/lib/jenkins/sam-venv/bin/activate
                             sam validate
                         '''
 					}
@@ -125,7 +125,7 @@ pipeline {
             steps {
                 timeout(time: 10, unit: 'MINUTES') {
                     sh '''
-                        source /var/lib/jenkins/sam-venv/${BUILD_TAG}/bin/activate
+                        source /var/lib/jenkins/sam-venv/bin/activate
                         sam build
                     '''
                 }
@@ -140,7 +140,7 @@ pipeline {
                 withAWS(credentials: 'AWSCredentials') {
                     timeout(time: 10, unit: 'MINUTES') {
                         sh '''
-                            source /var/lib/jenkins/sam-venv/${BUILD_TAG}/bin/activate
+                            source /var/lib/jenkins/sam-venv/bin/activate
                             sam package --output-template-file ${SAM_PACKAGE} --s3-bucket ${S3_BUCKET_NAME}
                             sam deploy --template-file ${SAM_PACKAGE} --stack-name ${STACK_NAME} --capabilities ${IAM_ROLE} --region ${AWS_DEFAULT_REGION}
                         '''
@@ -154,7 +154,7 @@ pipeline {
         always {
             node('master') {
                 sh '''
-                    rm -r /var/lib/jenkins/sam-venv/${BUILD_TAG}
+                    rm -r /var/lib/jenkins/sam-venv/
                 '''
             }
         }
