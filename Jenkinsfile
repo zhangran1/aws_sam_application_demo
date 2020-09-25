@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent 'tech-hunt'
 
     environment {
         AWS_DEFAULT_REGION = "ap-southeast-1"
@@ -150,7 +150,7 @@ pipeline {
     }
     post {
         always {
-            node('any') {
+            node('tech-hunt') {
                 sh '''
                     rm -r /var/lib/jenkins/sam-venv/${BUILD_TAG}
                 '''
