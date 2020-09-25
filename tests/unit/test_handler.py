@@ -1,3 +1,7 @@
+import sys
+
+sys.path.append('././apps/')
+
 import json
 
 import pytest
