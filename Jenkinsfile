@@ -40,7 +40,7 @@ pipeline {
             post {
                 always {
                     junit(allowEmptyResults: true,
-                            testResults: ${COV_FILE})
+                            testResults: '${COV_FILE}')
                 }
             }
         }
@@ -69,7 +69,7 @@ pipeline {
                     step([$class             : 'CoberturaPublisher',
                           autoUpdateHealth   : false,
                           autoUpdateStability: false,
-                          coberturaReportFile: ${COV_FILE},
+                          coberturaReportFile: '${COV_FILE}',
                           failNoReports      : false,
                           failUnhealthy      : false,
                           failUnstable       : false,
