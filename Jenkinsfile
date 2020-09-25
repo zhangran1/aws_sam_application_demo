@@ -30,9 +30,11 @@ pipeline {
     }
     post {
         always {
-            sh '''
-                rm -r /var/lib/jenkins/sam-venv/${BUILD_TAG}
-            '''
+            node(null) {
+                sh '''
+                    rm -r /var/lib/jenkins/sam-venv/${BUILD_TAG}
+                '''
+            }
         }
     }
 }
