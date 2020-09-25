@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label Null
+        label 'master'
     }
 
     environment {
@@ -152,7 +152,7 @@ pipeline {
     }
     post {
         always {
-            node(Null) {
+            node('master') {
                 sh '''
                     rm -r /var/lib/jenkins/sam-venv/${BUILD_TAG}
                 '''
