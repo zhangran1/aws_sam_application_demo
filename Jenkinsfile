@@ -1,6 +1,6 @@
 pipeline {
     agent {
-        label 'tech-hunt'
+        label Null
     }
 
     environment {
@@ -152,7 +152,7 @@ pipeline {
     }
     post {
         always {
-            node('tech-hunt') {
+            node(Null) {
                 sh '''
                     rm -r /var/lib/jenkins/sam-venv/${BUILD_TAG}
                 '''
