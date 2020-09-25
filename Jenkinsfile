@@ -1,5 +1,5 @@
 pipeline {
-    agent 'tech-hunt'
+    agent any
 
     environment {
         AWS_DEFAULT_REGION = "ap-southeast-1"
