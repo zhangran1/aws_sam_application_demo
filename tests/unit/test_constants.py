@@ -52,6 +52,19 @@ BINARY_INVALID_TEST_CASE_1 = "LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLTQ4MzQyMTg0Nj
                              "0MA0KZTAwMDEyLGhwb3R0ZXIxMixocG90dGVyMTIgUG90dGVyLDUwDQotLS0tLS0tLS0tLS0tLS0tLS0tLS0tL" \
                              "S0tLS0tNDgzNDIxODQ2NDE3MTU3NDk4MTAxODM3LS0NCg=="
 
+BINARY_INVALID_TEST_CASE_2 = "LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLTc0NzE5NjQ2NTA0NjgxODY1ODQzMTI2OA0KQ29udGVudC1Ea" \
+                             "XNwb3NpdGlvbjogZm9ybS1kYXRhOyBuYW1lPSJmaWxlIjsgZmlsZW5hbWU9ImludmFsaWRfdGVzdF9jYXNlMl" \
+                             "9taXNzaW5nX29uZV9jb2x1bW5fcmVjb3JkLmNzdiINCkNvbnRlbnQtVHlwZTogdGV4dC9jc3YNCg0KSGVhZGl" \
+                             "uZyBJbmZvcm1hdGlvbiwsLA0KZTAwMDEsaHBvdHRlcjEsaHBvdHRlcjEgUG90dGVyLDEyMzQuMDANCmUwMDAyL" \
+                             "Ghwb3R0ZXIyLGhwb3R0ZXIyIFdlYXNsZXksMTkyMzQuNTANCmUwMDAzLGhwb3R0ZXIzLGhwb3R0ZXIzIFNuYXB" \
+                             "lLDQwMDAuMA0KZTAwMDQsaHBvdHRlcjQsaHBvdHRlcjQgUG90dGVyDQplMDAwNSxocG90dGVyNSxocG90dGVyNS" \
+                             "BQb3R0ZXIsNTIzLjQNCmUwMDA2LGhwb3R0ZXI2LGhwb3R0ZXI2IFdlYXNsZXksNDAwMC4wMDQNCmUwMDA3LGhwb" \
+                             "3R0ZXI3LGhwb3R0ZXI3IFNuYXBlLDAuMA0KZTAwMDgsaHBvdHRlcjgsaHBvdHRlcjggUG90dGVyLDM0LjIzDQpl" \
+                             "MDAwOSxocG90dGVyOSxocG90dGVyOSBQb3R0ZXIsMzQyMzQuNQ0KZTAwMDEwLGhwb3R0ZXIxMCxocG90dGVyMT" \
+                             "AgUG90dGVyLDEzNDIzNC41DQplMDAwMTEsaHBvdHRlcjExLGhwb3R0ZXIxMSBQb3R0ZXIsNDANCmUwMDAxMixo" \
+                             "cG90dGVyMTIsaHBvdHRlcjEyIFBvdHRlciw1MA0KLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLTc0NzE5Nj" \
+                             "Q2NTA0NjgxODY1ODQzMTI2OC0tDQo="
+
 BINARY_INVALID_EMPTY_FILE = "LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLTA1NDg5NTU4NTgzMzg2OTkxODY3NjA5Mg0KQ29udGVudC1E" \
                             "aXNwb3NpdGlvbjogZm9ybS1kYXRhOyBuYW1lPSJmaWxlIjsgZmlsZW5hbWU9ImludmFsaWRfdGVzdF9lbXB0e" \
                             "V9maWxlLmNzdiINCkNvbnRlbnQtVHlwZTogdGV4dC9jc3YNCg0KDQotLS0tLS0tLS0tLS0tLS0tLS0tLS0tL" \
@@ -122,6 +135,23 @@ INVALID_PROCESSED_DATA_TEST_CASE_1 = ['Content-Disposition: form-data; name="fil
                                       '\ne00011,hpotter11,hpotter11 Potter,40\r'
                                       '\ne00012,hpotter12,hpotter12 Potter,50\r\n', '--\r\n']
 
+
+INVALID_PROCESSED_DATA_TEST_CASE_2 = ['Content-Disposition: form-data; name="file"; '
+                                      'filename="invalid_test_case2_missing_one_column_record.csv"\r'
+                                      '\nContent-Type: text/csv\r\n\r'
+                                      '\nHeading Information,,,\r'
+                                      '\ne0001,hpotter1,hpotter1 Potter,1234.00\r'
+                                      '\ne0002,hpotter2,hpotter2 Weasley,19234.50\r'
+                                      '\ne0003,hpotter3,hpotter3 Snape,4000.0\r'
+                                      '\ne0004,hpotter4,hpotter4 Potter\r'
+                                      '\ne0005,hpotter5,hpotter5 Potter,523.4\r'
+                                      '\ne0006,hpotter6,hpotter6 Weasley,4000.004\r'
+                                      '\ne0007,hpotter7,hpotter7 Snape,0.0\r'
+                                      '\ne0008,hpotter8,hpotter8 Potter,34.23\r'
+                                      '\ne0009,hpotter9,hpotter9 Potter,34234.5\r'
+                                      '\ne00010,hpotter10,hpotter10 Potter,134234.5\r'
+                                      '\ne00011,hpotter11,hpotter11 Potter,40\r'
+                                      '\ne00012,hpotter12,hpotter12 Potter,50\r\n', '--\r\n']
 
 INVALID_EMPTY_FILE_PROCESSED_DATA = ['Content-Disposition: form-data; name="file"; '
                                      'filename="invalid_test_empty_file.csv"\r'
