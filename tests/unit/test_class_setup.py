@@ -15,7 +15,6 @@ logger = logging.getLogger()
 @pytest.fixture(scope="function")
 def valid_upload_data_parser():
     logger.info("\n---------------setup valid upload data------------------")
-
     data = VALID_PROCESSED_DATA_TEST_CASE_1
     record = data[0]
     csv_data = csv.reader(record.splitlines(), delimiter=',')
@@ -27,7 +26,6 @@ def valid_upload_data_parser():
 @pytest.fixture(scope="function")
 def invalid_upload_data_parser():
     logger.info("\n---------------setup invalid upload data------------------")
-
     data = INVALID_EMPTY_FILE_PROCESSED_DATA
     record = data[0]
     csv_data = csv.reader(record.splitlines(), delimiter=',')
