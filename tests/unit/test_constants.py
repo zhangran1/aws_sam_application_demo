@@ -1,0 +1,4 @@
+SUCCESS_MSG_RESPONSE = "File uploaded successfully"
+FAIL_VALIDATION_FAIL = "File Validation Failed"
+HTTP_SUCCESS_STATUS = 200
+HTTP_FAIL_STATUS = 400
