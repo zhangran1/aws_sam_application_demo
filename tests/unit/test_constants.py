@@ -92,6 +92,19 @@ BINARY_INVALID_TEST_CASE_4 = "LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLTE5MzU5OTA5Nj
                              "XIsNDANCmUwMDAxMixocG90dGVyMTIsaHBvdHRlcjEyIFBvdHRlciw1MA0KLS0tLS0tLS0tLS0tLS0tLS0tL" \
                              "S0tLS0tLS0tLTE5MzU5OTA5NjM5MTAyMDQyMzE3MjcyNi0tDQo="
 
+BINARY_INVALID_DUPLICATE_ID = "LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLTk1MDkzNjA2NzAzNDQ4MDYzMTE2MjYxNA0KQ29udGVudC1" \
+                              "EaXNwb3NpdGlvbjogZm9ybS1kYXRhOyBuYW1lPSJmaWxlIjsgZmlsZW5hbWU9ImludmFsaWRfdGVzdF9jYXN" \
+                              "lX2R1cGxpY2F0ZV9pZF9sb2dpbi5jc3YiDQpDb250ZW50LVR5cGU6IHRleHQvY3N2DQoNCkhlYWRpbmcgSW5m" \
+                              "b3JtYXRpb24sLCwKZTAwMDEsaHBvdHRlcjEsaHBvdHRlcjEgUG90dGVyLDEyMzQuMDAKZTAwMDIsaHBvdHRlc" \
+                              "jIsaHBvdHRlcjIgV2Vhc2xleSwxOTIzNC41MAplMDAwMyxocG90dGVyMyxocG90dGVyMyBTbmFwZSw0MDAwLj" \
+                              "AKZTAwMDQsaHBvdHRlcjQsaHBvdHRlcjQgUG90dGVyLDM5OTkuOTk5CmUwMDA1LGhwb3R0ZXI1LGhwb3R0ZXI" \
+                              "1IFBvdHRlciw1MjMuNAplMDAwNixocG90dGVyNixocG90dGVyNiBXZWFzbGV5LDQwMDAuMDA0CmUwMDA3LGhwb" \
+                              "3R0ZXI3LGhwb3R0ZXI3IFNuYXBlLDAuMAplMDAwOCxocG90dGVyOCxocG90dGVyOCBQb3R0ZXIsMzQuMjMKZTA" \
+                              "wMDMsaHBvdHRlcjMsZHVwbGljYXRlIHJlY29yZCwzNC4yMwojZTAwMDEwLGhwb3R0ZXIxMCwxaHBvdHRlcgplM" \
+                              "DAwOSxocG90dGVyOSxocG90dGVyOSBQb3R0ZXIsMzQyMzQuNQplMDAwMTAsaHBvdHRlcjEwLGhwb3R0ZXIxMCB" \
+                              "Qb3R0ZXIsMTM0MjM0LjUKDQotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tOTUwOTM2MDY3MDM0NDgwNjMx" \
+                              "MTYyNjE0LS0NCg=="
+
 BINARY_INVALID_EMPTY_FILE = "LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLTA1NDg5NTU4NTgzMzg2OTkxODY3NjA5Mg0KQ29udGVudC1E" \
                             "aXNwb3NpdGlvbjogZm9ybS1kYXRhOyBuYW1lPSJmaWxlIjsgZmlsZW5hbWU9ImludmFsaWRfdGVzdF9lbXB0e" \
                             "V9maWxlLmNzdiINCkNvbnRlbnQtVHlwZTogdGV4dC9jc3YNCg0KDQotLS0tLS0tLS0tLS0tLS0tLS0tLS0tL" \
@@ -214,6 +227,23 @@ INVALID_PROCESSED_DATA_TEST_CASE_4 = ['Content-Disposition: form-data; name="fil
                                       '\ne00010,hpotter10,hpotter10 Potter,134234.5\r'
                                       '\ne00011,hpotter11,hpotter11 Potter,40\r'
                                       '\ne00012,hpotter12,hpotter12 Potter,50\r\n', '--\r\n']
+
+INVALID_DUPLICATE_ID_PROCESSED_DATA = ['Content-Disposition: form-data; name="file"; '
+                                       'filename="invalid_test_case_duplicate_id_login.csv"\r'
+                                       '\nContent-Type: text/csv\r\n\r'
+                                       '\nHeading Information,,,'
+                                       '\ne0001,hpotter1,hpotter1 Potter,1234.00'
+                                       '\ne0002,hpotter2,hpotter2 Weasley,19234.50'
+                                       '\ne0003,hpotter3,hpotter3 Snape,4000.0'
+                                       '\ne0004,hpotter4,hpotter4 Potter,3999.999'
+                                       '\ne0005,hpotter5,hpotter5 Potter,523.4'
+                                       '\ne0006,hpotter6,hpotter6 Weasley,4000.004'
+                                       '\ne0007,hpotter7,hpotter7 Snape,0.0'
+                                       '\ne0008,hpotter8,hpotter8 Potter,34.23'
+                                       '\ne0003,hpotter3,duplicate record,34.23'
+                                       '\n#e00010,hpotter10,1hpotter'
+                                       '\ne0009,hpotter9,hpotter9 Potter,34234.5'
+                                       '\ne00010,hpotter10,hpotter10 Potter,134234.5\n\r\n', '--\r\n']
 
 
 INVALID_EMPTY_FILE_PROCESSED_DATA = ['Content-Disposition: form-data; name="file"; '
