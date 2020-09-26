@@ -25,11 +25,11 @@ def test_http_response_fail():
     assert ret["statusCode"] == HTTP_FAIL_STATUS
 
 
-# def test_user_input_valid_test_case_1(user_input_valid_test_case_1, mocker):
-#     ret = upload.lambda_handler(user_input_valid_test_case_1, "")
-#     data = json.loads(ret["body"])
-#     assert data["message"] == SUCCESS_MSG_RESPONSE
-#     assert ret["statusCode"] == HTTP_SUCCESS_STATUS
+def test_user_input_valid_test_case_1(user_input_valid_test_case_1, mocker):
+    ret = upload.lambda_handler(user_input_valid_test_case_1, "")
+    data = json.loads(ret["body"])
+    assert data["message"] == SUCCESS_MSG_RESPONSE
+    assert ret["statusCode"] == HTTP_SUCCESS_STATUS
 
 # def test_user_input_valid_test_case_2(user_input_valid_test_case_2, mocker):
 #     ret = upload.lambda_handler(user_input_valid_test_case_2, "")
