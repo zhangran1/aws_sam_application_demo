@@ -33,7 +33,7 @@ Resources:
     Properties:
       StageName: Dev
       BinaryMediaTypes:
-        - multipart~1form-data
+        - multipart/form-data
       DefinitionBody:
         swagger: "2.0"
         info:
