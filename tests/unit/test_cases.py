@@ -9,10 +9,6 @@ dir_path = os.path.dirname(os.path.realpath(__file__))
 sys.path.append('././apps/')
 
 
-invalid_test_case_3 = dir_path + "/sample_test_case/invalid_test_case3_invalid_salary.csv"
-invalid_test_empty_file = dir_path + "/sample_test_case/invalid_test_empty_file.csv"
-
-
 @pytest.fixture()
 def user_input_valid_test_case_1():
     """
@@ -90,9 +86,32 @@ def user_input_invalid_test_case_2():
 
 @pytest.fixture()
 def user_input_invalid_test_case_3():
-    return {
-        "body": invalid_test_case_3
-    }
+    """
+    This is a valid test case
+    Content-Encoding: utf-8
+    Content-Type: application/x-www-form-urlencoded
+
+    multi-form data:
+        file: content of invalid_test_case3_invalid_salary.csv
+    """
+    invalid_test_case_3 = TEST_CASE_TEMPLATE
+    invalid_test_case_3["body"] = BINARY_INVALID_TEST_CASE_3
+    return invalid_test_case_3
+
+
+@pytest.fixture()
+def user_input_invalid_test_case_4():
+    """
+    This is a valid test case
+    Content-Encoding: utf-8
+    Content-Type: application/x-www-form-urlencoded
+
+    multi-form data:
+        file: content of invalid_test_case4_negative_salary.csv
+    """
+    invalid_test_case_4 = TEST_CASE_TEMPLATE
+    invalid_test_case_4["body"] = BINARY_INVALID_TEST_CASE_4
+    return invalid_test_case_4
 
 
 @pytest.fixture()
