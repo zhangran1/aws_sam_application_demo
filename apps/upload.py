@@ -1,15 +1,18 @@
 import os
 import json
 import logging
+import base64
+import csv
 
+import http_responses
+
+from utils import *
 
 logger = logging.getLogger()
-logging.basicConfig(format='%(asctime)s,%(msecs)d %(levelname)-6s [%(filename)s:%(lineno)d] %(message)s',
-                    datefmt='%Y-%m-%d:%H:%M:%S',
-                    level=os.environ.get("LOGLEVEL", "INFO"))
+
 
 def lambda_handler(event, context):
-    """Sample pure Lambda function
+    """Lambda Function to handle user upload csv files.
 
     Parameters
     ----------
@@ -19,15 +22,16 @@ def lambda_handler(event, context):
     context: object, required
         Lambda Context runtime methods and attributes
 
-    Returns
-    ------
-
+    Returns:
+        Json response contains the following fields:
+        1. statusCode: 200 (File upload successful); 400 (File upload failed);
+        2. body: Json data contains return standard message based on valid_input value.
     """
 
+    data = filter_csv_data(event['body'])
+    if data:
+        validation = True
+    else:
+        validation = False
 
-    return {
-        "statusCode": 200,
-        "body": json.dumps({
-            "message": "File uploaded successfully",
-        }),
-    }
+    return http_responses.http_standard_return(validation)
