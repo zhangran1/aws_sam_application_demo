@@ -65,6 +65,33 @@ BINARY_INVALID_TEST_CASE_2 = "LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLTc0NzE5NjQ2NT
                              "cG90dGVyMTIsaHBvdHRlcjEyIFBvdHRlciw1MA0KLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLTc0NzE5Nj" \
                              "Q2NTA0NjgxODY1ODQzMTI2OC0tDQo="
 
+BINARY_INVALID_TEST_CASE_3 = "LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLTY4NjIyMDEyOTM1NTM1MDIzOTY0MjMzNA0KQ29udGVudC1Ea" \
+                             "XNwb3NpdGlvbjogZm9ybS1kYXRhOyBuYW1lPSJmaWxlIjsgZmlsZW5hbWU9ImludmFsaWRfdGVzdF9jYXNlM19" \
+                             "pbnZhbGlkX3NhbGFyeS5jc3YiDQpDb250ZW50LVR5cGU6IHRleHQvY3N2DQoNCkhlYWRpbmcgSW5mb3JtYXRpb" \
+                             "24sLCwNCmUwMDAxLGhwb3R0ZXIxLGhwb3R0ZXIxIFBvdHRlciwxMjM0LjAwDQplMDAwMixocG90dGVyMixocG9" \
+                             "0dGVyMiBXZWFzbGV5LDE5MjM0LjUwDQplMDAwMyxocG90dGVyMyxocG90dGVyMyBTbmFwZSw0MDAwLjANCmUwM" \
+                             "DA0LGhwb3R0ZXI0LGhwb3R0ZXI0IFBvdHRlciwzOSA5OS45OTkNCmUwMDA1LGhwb3R0ZXI1LGhwb3R0ZXI1IFB" \
+                             "vdHRlciw1MjMuNA0KZTAwMDYsaHBvdHRlcjYsaHBvdHRlcjYgV2Vhc2xleSw0MDAwLjAwNA0KZTAwMDcsaHBvd" \
+                             "HRlcjcsaHBvdHRlcjcgU25hcGUsMC4wDQplMDAwOCxocG90dGVyOCxocG90dGVyOCBQb3R0ZXIsMzQuMjMNCmU" \
+                             "wMDA5LGhwb3R0ZXI5LGhwb3R0ZXI5IFBvdHRlciwzNDIzNC41DQplMDAwMTAsaHBvdHRlcjEwLGhwb3R0ZXIxMC" \
+                             "BQb3R0ZXIsMTM0MjM0LjUNCmUwMDAxMSxocG90dGVyMTEsaHBvdHRlcjExIFBvdHRlciw0MA0KZTAwMDEyLGhwb" \
+                             "3R0ZXIxMixocG90dGVyMTIgUG90dGVyLDUwDQotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tNjg2MjIwMTI5" \
+                             "MzU1MzUwMjM5NjQyMzM0LS0NCg=="
+
+
+BINARY_INVALID_TEST_CASE_4 = "LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLTE5MzU5OTA5NjM5MTAyMDQyMzE3MjcyNg0KQ29udGVudC1E" \
+                             "aXNwb3NpdGlvbjogZm9ybS1kYXRhOyBuYW1lPSJmaWxlIjsgZmlsZW5hbWU9ImludmFsaWRfdGVzdF9jYXNl" \
+                             "NF9uZWdhdGl2ZV9zYWxhcnkuY3N2Ig0KQ29udGVudC1UeXBlOiB0ZXh0L2Nzdg0KDQpIZWFkaW5nIEluZm9y" \
+                             "bWF0aW9uLCwsDQplMDAwMSxocG90dGVyMSxocG90dGVyMSBQb3R0ZXIsMTIzNC4wMA0KZTAwMDIsaHBvdHRl" \
+                             "cjIsaHBvdHRlcjIgV2Vhc2xleSwxOTIzNC41MA0KZTAwMDMsaHBvdHRlcjMsaHBvdHRlcjMgU25hcGUsNDAw" \
+                             "MC4wDQplMDAwNCxocG90dGVyNCxocG90dGVyNCBQb3R0ZXIsLTM5OTkuOTk5DQplMDAwNSxocG90dGVyNSxo" \
+                             "cG90dGVyNSBQb3R0ZXIsNTIzLjQNCmUwMDA2LGhwb3R0ZXI2LGhwb3R0ZXI2IFdlYXNsZXksNDAwMC4wMDQN" \
+                             "CmUwMDA3LGhwb3R0ZXI3LGhwb3R0ZXI3IFNuYXBlLDAuMA0KZTAwMDgsaHBvdHRlcjgsaHBvdHRlcjggUG90" \
+                             "dGVyLDM0LjIzDQplMDAwOSxocG90dGVyOSxocG90dGVyOSBQb3R0ZXIsMzQyMzQuNQ0KZTAwMDEwLGhwb3R0Z" \
+                             "XIxMCxocG90dGVyMTAgUG90dGVyLDEzNDIzNC41DQplMDAwMTEsaHBvdHRlcjExLGhwb3R0ZXIxMSBQb3R0Z" \
+                             "XIsNDANCmUwMDAxMixocG90dGVyMTIsaHBvdHRlcjEyIFBvdHRlciw1MA0KLS0tLS0tLS0tLS0tLS0tLS0tL" \
+                             "S0tLS0tLS0tLTE5MzU5OTA5NjM5MTAyMDQyMzE3MjcyNi0tDQo="
+
 BINARY_INVALID_EMPTY_FILE = "LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLTA1NDg5NTU4NTgzMzg2OTkxODY3NjA5Mg0KQ29udGVudC1E" \
                             "aXNwb3NpdGlvbjogZm9ybS1kYXRhOyBuYW1lPSJmaWxlIjsgZmlsZW5hbWU9ImludmFsaWRfdGVzdF9lbXB0e" \
                             "V9maWxlLmNzdiINCkNvbnRlbnQtVHlwZTogdGV4dC9jc3YNCg0KDQotLS0tLS0tLS0tLS0tLS0tLS0tLS0tL" \
@@ -152,6 +179,42 @@ INVALID_PROCESSED_DATA_TEST_CASE_2 = ['Content-Disposition: form-data; name="fil
                                       '\ne00010,hpotter10,hpotter10 Potter,134234.5\r'
                                       '\ne00011,hpotter11,hpotter11 Potter,40\r'
                                       '\ne00012,hpotter12,hpotter12 Potter,50\r\n', '--\r\n']
+
+
+INVALID_PROCESSED_DATA_TEST_CASE_3 = ['Content-Disposition: form-data; name="file"; '
+                                      'filename="invalid_test_case3_invalid_salary.csv"\r'
+                                      '\nContent-Type: text/csv\r\n\r'
+                                      '\nHeading Information,,,\r'
+                                      '\ne0001,hpotter1,hpotter1 Potter,1234.00\r'
+                                      '\ne0002,hpotter2,hpotter2 Weasley,19234.50\r'
+                                      '\ne0003,hpotter3,hpotter3 Snape,4000.0\r'
+                                      '\ne0004,hpotter4,hpotter4 Potter,39 99.999\r'
+                                      '\ne0005,hpotter5,hpotter5 Potter,523.4\r'
+                                      '\ne0006,hpotter6,hpotter6 Weasley,4000.004\r'
+                                      '\ne0007,hpotter7,hpotter7 Snape,0.0\r'
+                                      '\ne0008,hpotter8,hpotter8 Potter,34.23\r'
+                                      '\ne0009,hpotter9,hpotter9 Potter,34234.5\r'
+                                      '\ne00010,hpotter10,hpotter10 Potter,134234.5\r'
+                                      '\ne00011,hpotter11,hpotter11 Potter,40\r'
+                                      '\ne00012,hpotter12,hpotter12 Potter,50\r\n', '--\r\n']
+
+INVALID_PROCESSED_DATA_TEST_CASE_4 = ['Content-Disposition: form-data; name="file"; '
+                                      'filename="invalid_test_case4_negative_salary.csv"\r'
+                                      '\nContent-Type: text/csv\r\n\r'
+                                      '\nHeading Information,,,\r'
+                                      '\ne0001,hpotter1,hpotter1 Potter,1234.00\r'
+                                      '\ne0002,hpotter2,hpotter2 Weasley,19234.50\r'
+                                      '\ne0003,hpotter3,hpotter3 Snape,4000.0\r'
+                                      '\ne0004,hpotter4,hpotter4 Potter,-3999.999\r'
+                                      '\ne0005,hpotter5,hpotter5 Potter,523.4\r'
+                                      '\ne0006,hpotter6,hpotter6 Weasley,4000.004\r'
+                                      '\ne0007,hpotter7,hpotter7 Snape,0.0\r'
+                                      '\ne0008,hpotter8,hpotter8 Potter,34.23\r'
+                                      '\ne0009,hpotter9,hpotter9 Potter,34234.5\r'
+                                      '\ne00010,hpotter10,hpotter10 Potter,134234.5\r'
+                                      '\ne00011,hpotter11,hpotter11 Potter,40\r'
+                                      '\ne00012,hpotter12,hpotter12 Potter,50\r\n', '--\r\n']
+
 
 INVALID_EMPTY_FILE_PROCESSED_DATA = ['Content-Disposition: form-data; name="file"; '
                                      'filename="invalid_test_empty_file.csv"\r'
