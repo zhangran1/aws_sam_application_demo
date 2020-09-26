@@ -17,6 +17,16 @@ BINARY_VALID_TEST_CASE_1 = "LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLTYwODgxMzA1MDI1
                           "3R0ZXIsMzQyMzQuNQplMDAwMTAsaHBvdHRlcjEwLGhwb3R0ZXIxMCBQb3R0ZXIsMTM0MjM0LjUKDQotLS0tLS0tL" \
                           "S0tLS0tLS0tLS0tLS0tLS0tLS0tNjA4ODEzMDUwMjUyMzk3Mzc0Mjg0MTQwLS0NCg=="
 
+VALID_TEST_CASE_PROCESSED_DATA = ['Content-Disposition: form-data; name="test_key"\r\n\r\ntest_key_value\r\n',
+                                  '\r\nContent-Disposition: form-data; name="file"; filename="valid_test_case1.csv"'
+                                  '\r\nContent-Type: text/csv\r\n\r\nHeading Information,,,'
+                                  '\ne0001,hpotter1,hpotter1 Potter,1234.00\ne0002,hpotter2,hpotter2 Weasley,19234.50'
+                                  '\ne0003,hpotter3,hpotter3 Snape,4000.0\ne0004,hpotter4,hpotter4 Potter,3999.999'
+                                  '\ne0005,hpotter5,hpotter5 Potter,523.4\ne0006,hpotter6,hpotter6 Weasley,4000.004'
+                                  '\ne0007,hpotter7,hpotter7 Snape,0.0\ne0008,hpotter8,hpotter8 Potter,34.23'
+                                  '\n#e00010,hpotter10,1hpotter\ne0009,hpotter9,hpotter9 Potter,34234.5'
+                                  '\ne00010,hpotter10,hpotter10 Potter,134234.5\n\r\n', '--\r\n']
+
 TEST_CASE_TEMPLATE = {
         "body": None,
         "resource": "/{proxy+}",
