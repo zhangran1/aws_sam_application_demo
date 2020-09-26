@@ -7,6 +7,7 @@ from apps import upload
 from tests.unit.test_cases import *
 from tests.unit.test_constants import *
 from apps.http_responses import *
+from apps.utils import *
 
 
 def test_http_response_success():
@@ -23,6 +24,11 @@ def test_http_response_fail():
     data = json.loads(ret["body"])
     assert data["message"] == FAIL_VALIDATION_FAIL
     assert ret["statusCode"] == HTTP_FAIL_STATUS
+
+
+def test_filter_csv_data():
+    processed_data = filter_csv_data(BINARY_VALID_TEST_CASE_1)
+    assert processed_data == VALID_TEST_CASE_PROCESSED_DATA
 
 
 def test_user_input_valid_test_case_1(user_input_valid_test_case_1, mocker):
