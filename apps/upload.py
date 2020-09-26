@@ -1,10 +1,7 @@
-import os
-import json
 import logging
-import base64
-import csv
 
 import http_responses
+import multipart_form_parser
 
 from utils import *
 
@@ -28,10 +25,12 @@ def lambda_handler(event, context):
         2. body: Json data contains return standard message based on valid_input value.
     """
 
-    data = filter_csv_data(event['body'])
-    if data:
-        validation = True
-    else:
-        validation = False
+    multiform_data = filter_csv_data(event['body'])
+
+    validation = False
+    for record in multiform_data[:-1]:
+        csv_data = csv.reader(record.splitlines(), delimiter=',')
+        ss = multipart_form_parser.UploadDataParser(csv_data)
+        validation = ss.valid_input
 
     return http_responses.http_standard_return(validation)
