@@ -115,6 +115,21 @@ def user_input_invalid_test_case_4():
 
 
 @pytest.fixture()
+def user_input_invalid_duplicate_id_login():
+    """
+    This is a valid test case
+    Content-Encoding: utf-8
+    Content-Type: application/x-www-form-urlencoded
+
+    multi-form data:
+        file: content of invalid_test_case_duplicate_id_login.csv
+    """
+    invalid_duplicate_id_login = TEST_CASE_TEMPLATE
+    invalid_duplicate_id_login["body"] = BINARY_INVALID_DUPLICATE_ID
+    return invalid_duplicate_id_login
+
+
+@pytest.fixture()
 def user_input_invalid_test_empty_file():
     """
     This is a invalid test case with empty csv file uploaded
