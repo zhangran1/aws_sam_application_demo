@@ -28,6 +28,11 @@ BINARY_VALID_TEST_CASE_3 = "LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLTk1MzQ4NDczNzc0
                            "S05NTM0ODQ3Mzc3NDY2MjE5MTg2ODcwMjQtLQ0K"
 
 
+BINARY_INVALID_EMPTY_FILE = "LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLTA1NDg5NTU4NTgzMzg2OTkxODY3NjA5Mg0KQ29udGVudC1E" \
+                            "aXNwb3NpdGlvbjogZm9ybS1kYXRhOyBuYW1lPSJmaWxlIjsgZmlsZW5hbWU9ImludmFsaWRfdGVzdF9lbXB0e" \
+                            "V9maWxlLmNzdiINCkNvbnRlbnQtVHlwZTogdGV4dC9jc3YNCg0KDQotLS0tLS0tLS0tLS0tLS0tLS0tLS0tL" \
+                            "S0tLS0tMDU0ODk1NTg1ODMzODY5OTE4Njc2MDkyLS0NCg=="
+
 VALID_PROCESSED_DATA_TEST_CASE_1 = ['Content-Disposition: form-data; name="file"; '
                         'filename="valid_test_case1_with_hash.csv"'
                         '\r\nContent-Type: text/csv\r\n\r'
@@ -59,6 +64,12 @@ VALID_PROCESSED_DATA_TEST_CASE_3 = ['Content-Disposition: form-data; name="file"
                         '\n#e00010,hpotter10,1hpotter'
                         '\ne0009,hpotter9,hpotter9 Potter,34234.5'
                         '\ne00010,hpotter10,hpotter10 Potter,134234.5\n\r\n', '--\r\n']
+
+
+INVALID_EMPTY_FILE_PROCESSED_DATA = ['Content-Disposition: form-data; name="file"; '
+                                     'filename="invalid_test_empty_file.csv"\r'
+                                     '\nContent-Type: text/csv\r\n\r\n\r\n', '--\r\n']
+
 
 TEST_CASE_TEMPLATE = {
     "body": None,
