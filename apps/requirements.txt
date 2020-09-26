@@ -2,7 +2,6 @@ requests
 psycopg2-binary
 pytz
 maya
-flake8
 pytest
 pytest-mock
 pylint
