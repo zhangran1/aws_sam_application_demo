@@ -10,3 +10,4 @@ aws-sam-cli
 boto3
 mock
 moto
+flake8
