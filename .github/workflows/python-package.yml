@@ -29,10 +29,6 @@ jobs:
         if [ -f requirements.txt --use-feature=2020-resolver];
         then pip install -r apps/requirements.txt --use-feature=2020-resolver;
         fi
-    - name: Test build
-      run: |
-        sam validate
-        sam build
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
