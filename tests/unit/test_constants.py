@@ -15,6 +15,18 @@ BINARY_VALID_TEST_CASE_1 = "LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLTk5NDUwNzIzMzc2
                            "b3R0ZXIsMTM0MjM0LjUNCi0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS05OTQ1MDcyMzM3NjA2NTAzODk2MDc5M" \
                            "jYtLQ0K"
 
+BINARY_VALID_TEST_CASE_2 = "LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLTQwMTAxOTQ5NjE4Mjk5ODk0ODk5MzU5Ng0KQ29udGVudC1EaXN" \
+                           "wb3NpdGlvbjogZm9ybS1kYXRhOyBuYW1lPSJmaWxlIjsgZmlsZW5hbWU9InZhbGlkX3Rlc3RfY2FzZTJfd2l0aF" \
+                           "9jaGluZXNlX2NoYXJhY3Rlci5jc3YiDQpDb250ZW50LVR5cGU6IHRleHQvY3N2DQoNCkhlYWRpbmcgSW5mb3JtYX" \
+                           "Rpb24sLCwNCmUwMDAxLGhwb3R0ZXIxLGhwb3R0ZXIxIFBvdHRlciwxMjM0LjAwDQplMDAwMixocG90dGVyMixocG" \
+                           "90dGVyMiBXZWFzbGV5LDE5MjM0LjUwDQplMDAwMyxocG90dGVyMyxocG90dGVyMyBTbmFwZSw0MDAwLjANCmUwMD" \
+                           "A0LGhwb3R0ZXI0LGhwb3R0ZXI0IFBvdHRlciwzOTk5Ljk5OQ0KZTAwMDUsaHBvdHRlcjUsaHBvdHRlcjUgUG90dG" \
+                           "VyLDUyMy40DQplMDAwNixocG90dGVyNixocG90dGVyNiBXZWFzbGV5LDQwMDAuMDA0DQplMDAwNyxocG90dGVyNy" \
+                           "xocG90dGVyNyBTbmFwZSwwLjANCmUwMDA4LGhwb3R0ZXI4LGhwb3R0ZXI4IFBvdHRlciwzNC4yMw0KZTAwMDksaH" \
+                           "BvdHRlcjksaHBvdHRlcjkgUG90dGVyLDM0MjM0LjUNCmUwMDAxMCxocG90dGVyMTAsaHBvdHRlcjEwIFBvdHRlci" \
+                           "wxMzQyMzQuNQ0KZTAwMDExLOeUqOaItzEs55So5oi35ZCNMSw0MA0KZTAwMDEyLOeUqOaItzIs55So5oi35ZCNMi" \
+                           "w1MA0KLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLTQwMTAxOTQ5NjE4Mjk5ODk0ODk5MzU5Ni0tDQo="
+
 BINARY_VALID_TEST_CASE_3 = "LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLTk1MzQ4NDczNzc0NjYyMTkxODY4NzAyNA0KQ29udGVudC1EaXN" \
                            "wb3NpdGlvbjogZm9ybS1kYXRhOyBuYW1lPSJmaWxlIjsgZmlsZW5hbWU9InZhbGlkX3Rlc3RfY2FzZTNfd2l0aF" \
                            "9sYXN0X2xpbmVfZW1wdHkuY3N2Ig0KQ29udGVudC1UeXBlOiB0ZXh0L2Nzdg0KDQpIZWFkaW5nIEluZm9ybWF0a" \
@@ -48,6 +60,22 @@ VALID_PROCESSED_DATA_TEST_CASE_1 = ['Content-Disposition: form-data; name="file"
                         '\n#e00010,hpotter10,1hpotter'
                         '\ne0009,hpotter9,hpotter9 Potter,34234.5'
                         '\ne00010,hpotter10,hpotter10 Potter,134234.5\r\n', '--\r\n']
+
+VALID_PROCESSED_DATA_TEST_CASE_2 = ['Content-Disposition: form-data; name="file"; '
+                                    'filename="valid_test_case2_with_chinese_character.csv"'
+                                    '\r\nContent-Type: text/csv\r\n\r'
+                                    '\nHeading Information,,,\r'
+                                    '\ne0001,hpotter1,hpotter1 Potter,1234.00\r'
+                                    '\ne0002,hpotter2,hpotter2 Weasley,19234.50\r'
+                                    '\ne0003,hpotter3,hpotter3 Snape,4000.0\r'
+                                    '\ne0004,hpotter4,hpotter4 Potter,3999.999\r'
+                                    '\ne0005,hpotter5,hpotter5 Potter,523.4\r'
+                                    '\ne0006,hpotter6,hpotter6 Weasley,4000.004\r'
+                                    '\ne0007,hpotter7,hpotter7 Snape,0.0\r'
+                                    '\ne0008,hpotter8,hpotter8 Potter,34.23\r'
+                                    '\ne0009,hpotter9,hpotter9 Potter,34234.5\r'
+                                    '\ne00010,hpotter10,hpotter10 Potter,134234.5\r'
+                                    '\ne00011,用户1,用户名1,40\r\ne00012,用户2,用户名2,50\r\n', '--\r\n']
 
 VALID_PROCESSED_DATA_TEST_CASE_3 = ['Content-Disposition: form-data; name="file"; '
                         'filename="valid_test_case3_with_last_line_empty.csv"'
