@@ -26,8 +26,9 @@ jobs:
     - name: Install dependencies
       run: |
         python -m pip install --upgrade pip
-        pip install flake8 pytest requests pytest-mock pylint awscli aws-sam-cli boto3 mock moto
-        if [ -f requirements.txt ]; then pip install -r apps/requirements.txt; fi
+        if [ -f requirements.txt --use-feature=2020-resolver];
+        then pip install -r apps/requirements.txt --use-feature=2020-resolver;
+        fi
     - name: Test build
       run: |
         sam validate

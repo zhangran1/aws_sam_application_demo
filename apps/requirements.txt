@@ -2,3 +2,12 @@ requests
 psycopg2-binary
 pytz
 maya
+flake8
+pytest
+pytest-mock
+pylint
+awscli
+aws-sam-cli
+boto3
+mock
+moto
