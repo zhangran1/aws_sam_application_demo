@@ -15,7 +15,7 @@ def test_http_response_success():
     validation = True
     ret = http_standard_return(validation)
     data = json.loads(ret["body"])
-    assert data["message"] == SUCCESS_MSG_RESPONSE
+    assert data["results"] == SUCCESS_MSG_RESPONSE
     assert ret["statusCode"] == HTTP_SUCCESS_STATUS
 
 
@@ -23,7 +23,7 @@ def test_http_response_fail():
     validation = False
     ret = http_standard_return(validation)
     data = json.loads(ret["body"])
-    assert data["message"] == FAIL_VALIDATION_FAIL
+    assert data["results"] == FAIL_VALIDATION_FAIL
     assert ret["statusCode"] == HTTP_FAIL_STATUS
 
 
@@ -51,7 +51,7 @@ def test_user_input_valid_test_case_1(user_input_valid_test_case_1):
     release_db_lock()
     ret = upload.lambda_handler(user_input_valid_test_case_1, "")
     data = json.loads(ret["body"])
-    assert data["message"] == SUCCESS_MSG_RESPONSE
+    assert data["results"] == SUCCESS_MSG_RESPONSE
     assert ret["statusCode"] == HTTP_SUCCESS_STATUS
 
 
@@ -59,7 +59,7 @@ def test_user_input_valid_test_case_2(user_input_valid_test_case_2):
     release_db_lock()
     ret = upload.lambda_handler(user_input_valid_test_case_2, "")
     data = json.loads(ret["body"])
-    assert data["message"] == SUCCESS_MSG_RESPONSE
+    assert data["results"] == SUCCESS_MSG_RESPONSE
     assert ret["statusCode"] == HTTP_SUCCESS_STATUS
 
 
@@ -67,7 +67,7 @@ def test_user_input_valid_test_case_3(user_input_valid_test_case_3):
     release_db_lock()
     ret = upload.lambda_handler(user_input_valid_test_case_3, "")
     data = json.loads(ret["body"])
-    assert data["message"] == SUCCESS_MSG_RESPONSE
+    assert data["results"] == SUCCESS_MSG_RESPONSE
     assert ret["statusCode"] == HTTP_SUCCESS_STATUS
 
 
@@ -75,7 +75,7 @@ def test_user_input_invalid_test_case_1(user_input_invalid_test_case_1):
     release_db_lock()
     ret = upload.lambda_handler(user_input_invalid_test_case_1, "")
     data = json.loads(ret["body"])
-    assert data["message"] == FAIL_VALIDATION_FAIL
+    assert data["results"] == FAIL_VALIDATION_FAIL
     assert ret["statusCode"] == HTTP_FAIL_STATUS
 
 
@@ -83,7 +83,7 @@ def test_user_input_invalid_test_case_2(user_input_invalid_test_case_2):
     release_db_lock()
     ret = upload.lambda_handler(user_input_invalid_test_case_2, "")
     data = json.loads(ret["body"])
-    assert data["message"] == FAIL_VALIDATION_FAIL
+    assert data["results"] == FAIL_VALIDATION_FAIL
     assert ret["statusCode"] == HTTP_FAIL_STATUS
 
 
@@ -91,7 +91,7 @@ def test_user_input_invalid_test_case_3(user_input_invalid_test_case_3):
     release_db_lock()
     ret = upload.lambda_handler(user_input_invalid_test_case_3, "")
     data = json.loads(ret["body"])
-    assert data["message"] == FAIL_VALIDATION_FAIL
+    assert data["results"] == FAIL_VALIDATION_FAIL
     assert ret["statusCode"] == HTTP_FAIL_STATUS
 
 
@@ -99,7 +99,7 @@ def test_user_input_invalid_test_case_4(user_input_invalid_test_case_4):
     release_db_lock()
     ret = upload.lambda_handler(user_input_invalid_test_case_4, "")
     data = json.loads(ret["body"])
-    assert data["message"] == FAIL_VALIDATION_FAIL
+    assert data["results"] == FAIL_VALIDATION_FAIL
     assert ret["statusCode"] == HTTP_FAIL_STATUS
 
 
@@ -107,7 +107,7 @@ def test_user_input_invalid_duplicate_id_login(user_input_invalid_duplicate_id_l
     release_db_lock()
     ret = upload.lambda_handler(user_input_invalid_duplicate_id_login, "")
     data = json.loads(ret["body"])
-    assert data["message"] == FAIL_VALIDATION_FAIL
+    assert data["results"] == FAIL_VALIDATION_FAIL
     assert ret["statusCode"] == HTTP_FAIL_STATUS
 
 
@@ -115,7 +115,7 @@ def test_user_input_invalid_test_empty_file(user_input_invalid_test_empty_file):
     release_db_lock()
     ret = upload.lambda_handler(user_input_invalid_test_empty_file, "")
     data = json.loads(ret["body"])
-    assert data["message"] == FAIL_VALIDATION_FAIL
+    assert data["results"] == FAIL_VALIDATION_FAIL
     assert ret["statusCode"] == HTTP_FAIL_STATUS
 
 
@@ -210,3 +210,39 @@ def test_invalid_required_params_sort_value_case_1(invalid_required_params_sort_
 def test_invalid_required_params_sort_value_case_2(invalid_required_params_sort_value_case_2):
     ret = requested_params_validation(invalid_required_params_sort_value_case_2)
     assert ret is False
+
+
+def test_select_employee_asc_name(valid_required_params_asc_name):
+    ret = retrieve_users_from_db(valid_required_params_asc_name)
+    data = json.loads(ret["body"])
+    assert ret["statusCode"] == 200
+
+    assert data["results"] == [{'id': 'test000012', 'login': 'adam2', 'name': 'Adam2', 'salary': '1002.5'},
+                               {'id': 'test000013', 'login': 'adam3', 'name': 'Adam3', 'salary': '1003.5'}]
+
+
+def test_select_employee_desc_salary(valid_required_params_desc_salary):
+    ret = retrieve_users_from_db(valid_required_params_desc_salary)
+    data = json.loads(ret["body"])
+    assert ret["statusCode"] == 200
+    assert "results" in ret["body"]
+    assert data["results"] == [{"id": "e0001", "login": "hpotter1", "name": "hpotter1 Potter", "salary": "1234.00"},
+                               {"id": "test000014", "login": "adam4", "name": "Adam4", "salary": "1004.5"}]
+
+
+def test_select_employee_asc_id(valid_required_params_asc_employee_id):
+    ret = retrieve_users_from_db(valid_required_params_asc_employee_id)
+    data = json.loads(ret["body"])
+    assert ret["statusCode"] == 200
+    assert "results" in ret["body"]
+    assert data["results"] == [{'id': 'e00011', 'login': '用户1', 'name': '用户名1', 'salary': '40'},
+                               {'id': 'e00012', 'login': '用户2', 'name': '用户名2', 'salary': '50'}]
+
+
+def test_select_employee_desc_login(valid_required_params_desc_login):
+    ret = retrieve_users_from_db(valid_required_params_desc_login)
+    data = json.loads(ret["body"])
+    assert ret["statusCode"] == 200
+    assert "results" in ret["body"]
+    assert data["results"] == [{'id': 'e00011', 'login': '用户1', 'name': '用户名1', 'salary': '40'},
+                               {'id': 'test00009', 'login': 'john9', 'name': 'John Smith9', 'salary': '109.5'}]
