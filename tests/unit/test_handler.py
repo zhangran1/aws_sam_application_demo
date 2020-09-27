@@ -134,3 +134,9 @@ def test_create_single_employee_record(employee_object):
 def test_create_multiple_employee_records(valid_employee_records):
     ret = upload_csv_record_to_db(valid_employee_records)
     assert ret == DB_SUCCESS_OPERATION
+
+
+def test_check_db_lock():
+    sample_lock = "228b27e3-2a74-4849-9eba"
+    ret = check_db_lock(sample_lock)
+    assert ret == True
