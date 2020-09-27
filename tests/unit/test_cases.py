@@ -192,3 +192,24 @@ def invalid_required_params_sort_value_case_1():
 @pytest.fixture()
 def invalid_required_params_sort_value_case_2():
     return INVALID_REQUIRED_PARAMS_SORT_VALUE_CASE_2
+
+
+@pytest.fixture()
+def valid_required_params_asc_name():
+    return VALID_REQUIRED_PARAMS_ASC_NAME
+
+
+@pytest.fixture()
+def valid_required_params_desc_salary():
+    return VALID_REQUIRED_PARAMS_DESC_SALARY
+
+
+@pytest.fixture()
+def valid_required_params_asc_employee_id():
+    return VALID_REQUIRED_PARAMS_ASC_EMPLOYEE_ID
+
+
+@pytest.fixture()
+def valid_required_params_desc_login():
+    return VALID_REQUIRED_PARAMS_DESC_LOGIN
+
