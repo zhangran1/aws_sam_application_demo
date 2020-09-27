@@ -147,3 +147,14 @@ def user_input_invalid_test_empty_file():
 @pytest.fixture()
 def sample_lock_id():
     return SAMPLE_LOCK_ID
+
+
+@pytest.fixture()
+def valid_query_string():
+    return VALID_REQUIRED_PARAMS
+
+
+@pytest.fixture()
+def invalid_query_string():
+    return INVALID_REQUIRED_PARAMS
+

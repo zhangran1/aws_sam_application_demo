@@ -56,3 +56,13 @@ def upload_csv_record_to_db(employee_records):
 def get_db_lock_status(db_lock=database_lock_id):
     return check_db_lock(db_lock)
 
+
+def query_string_validation(query_string):
+    validate_all_request_param = all(param in query_string.keys() for param in REQUIRED_PARAMS)
+
+    if not validate_all_request_param:
+        return validate_all_request_param
+
+    return validate_all_request_param
+
+

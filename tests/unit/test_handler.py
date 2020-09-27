@@ -165,3 +165,13 @@ def test_release_db_lock_get_process(sample_lock_id):
     assert get_lock_ret == DB_SUCCESS_OPERATION
     lock_status_ret = check_db_lock(sample_lock_id)
     assert lock_status_ret is True
+
+
+def test_query_string_valid_case(valid_query_string):
+    ret = query_string_validation(valid_query_string)
+    assert ret is True
+
+
+def test_query_string_invalid_case(invalid_query_string):
+    ret = query_string_validation(invalid_query_string)
+    assert ret is False
