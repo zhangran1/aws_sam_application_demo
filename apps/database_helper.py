@@ -155,3 +155,65 @@ def check_db_lock(db_lock_id):
             cnx.close()
         except:
             pass
+
+
+def get_db_lock(db_lock_id):
+    """Get db lock for user file upload.
+
+    Returns:
+        Returns boolean value:
+         1. DB_FAILED_OPERATION: Failed
+         2. DB_SUCCESS_OPERATION: OK
+    """
+    try:
+        cnx = make_connection()
+        cursor = cnx.cursor()
+
+        get_db_lock = ("update development.db_lock set lock_status = True where lock_id = %s")
+
+        cursor.execute(get_db_lock, (db_lock_id, ))
+        # todo check whether the above operation performed successfully
+        # can be done by via row count, or other postgres built in messages
+
+        return DB_SUCCESS_OPERATION
+
+    except Exception as e:
+        logger.error(e)
+        logger.error("Failed to get the lock")
+        return DB_FAILED_OPERATION
+    finally:
+        try:
+            cnx.close()
+        except:
+            pass
+
+
+def release_db_lock(db_lock_id):
+    """Release db lock for user file upload.
+
+    Returns:
+        Returns boolean value:
+         1. DB_FAILED_OPERATION: Failed
+         2. DB_SUCCESS_OPERATION: OK
+    """
+    try:
+        cnx = make_connection()
+        cursor = cnx.cursor()
+
+        get_db_lock = ("update development.db_lock set lock_status = False where lock_id = %s")
+
+        cursor.execute(get_db_lock, (db_lock_id, ))
+        # todo check whether the above operation performed successfully
+        # can be done by via row count, or other postgres built in messages
+
+        return DB_SUCCESS_OPERATION
+
+    except Exception as e:
+        logger.error(e)
+        logger.error("Failed to get the lock")
+        return DB_FAILED_OPERATION
+    finally:
+        try:
+            cnx.close()
+        except:
+            pass
