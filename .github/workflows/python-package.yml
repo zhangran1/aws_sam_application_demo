@@ -45,8 +45,8 @@ jobs:
         pytest
 
     - name: Validate Sam Template
-          run: |
-            sam validate
+        run: |
+          sam validate
 
     - name: Validate Sam Build
         run: |
