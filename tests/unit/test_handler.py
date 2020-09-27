@@ -132,6 +132,5 @@ def test_create_single_employee_record(employee_object):
 
 
 def test_create_multiple_employee_records(valid_employee_records):
-    for single_employee_record in valid_employee_records:
-        ret = create_employee(single_employee_record)
-        assert ret == DB_SUCCESS_OPERATION
+    ret = upload_csv_record_to_db(valid_employee_records)
+    assert ret == DB_SUCCESS_OPERATION
