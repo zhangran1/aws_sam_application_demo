@@ -1,5 +1,6 @@
 SUCCESS_MSG_RESPONSE = "File uploaded successfully"
 FAIL_VALIDATION_FAIL = "File Validation Failed"
+RETRIEVE_EMPLOYEE_FAILED = "Retrieve employee information failed"
 HTTP_SUCCESS_STATUS = 200
 HTTP_FAIL_STATUS = 400
 MINIMUM_ROW_COUNT = 5
