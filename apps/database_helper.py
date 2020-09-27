@@ -120,3 +120,38 @@ def check_existing_employee(employee_id):
             cnx.close()
         except:
             pass
+
+
+def check_db_lock(db_lock_id):
+    """Check is there any file upload process being in place
+
+    Returns:
+        Returns boolean value:
+        True:  Upload is in progress
+        False: No upload is taking in place
+    """
+    try:
+        cnx = make_connection()
+        cursor = cnx.cursor()
+
+        db_lock_query = ("select development.db_lock.lock_status from development.db_lock where db_lock.lock_id = %s")
+
+        cursor.execute(db_lock_query, (db_lock_id, ))
+        # todo check whether the above operation performed successfully
+        # can be done by via row count, or other postgres built in messages
+
+        db_lock_status = cursor.fetchall()
+        logger.info(db_lock_status[0][0])
+
+        return db_lock_status[0][0]
+
+    except Exception as e:
+        db_lock_status = True
+        logger.error(e)
+        logger.error("Failed to get the lock")
+        return db_lock_status
+    finally:
+        try:
+            cnx.close()
+        except:
+            pass
