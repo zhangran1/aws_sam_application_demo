@@ -8,6 +8,7 @@ from tests.unit.test_constants import *
 from tests.unit.test_class_setup import *
 from apps.http_responses import *
 from apps.utils import *
+from apps.database_helper import *
 
 
 def test_http_response_success():
@@ -107,3 +108,12 @@ def test_user_input_invalid_test_empty_file(user_input_invalid_test_empty_file):
     data = json.loads(ret["body"])
     assert data["message"] == FAIL_VALIDATION_FAIL
     assert ret["statusCode"] == HTTP_FAIL_STATUS
+
+
+def test_check_existing_employee():
+    current_employee_id = EXISTING_EMPLOYEE
+    record_count = check_existing_employee(current_employee_id)
+    assert record_count == 1
+    new_employee_id = NONE_EXIST_EMPLOYEE
+    record_count = check_existing_employee(new_employee_id)
+    assert record_count == 0
