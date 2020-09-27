@@ -150,7 +150,7 @@ def sample_lock_id():
 
 
 @pytest.fixture()
-def valid_query_string():
+def valid_requested_params():
     return VALID_REQUIRED_PARAMS
 
 
@@ -158,3 +158,37 @@ def valid_query_string():
 def invalid_query_string():
     return INVALID_REQUIRED_PARAMS
 
+
+@pytest.fixture()
+def invalid_required_params_negative_min_salary():
+    return INVALID_REQUIRED_PARAMS_NEGATIVE_MIN_SALARY
+
+
+@pytest.fixture()
+def invalid_required_params_negative_salary():
+    return INVALID_REQUIRED_PARAMS_NEGATIVE_SALARY
+
+
+@pytest.fixture()
+def invalid_required_params_offset():
+    return INVALID_REQUIRED_PARAMS_OFFSET
+
+
+@pytest.fixture()
+def invalid_required_params_limit():
+    return INVALID_REQUIRED_PARAMS_LIMIT
+
+
+@pytest.fixture()
+def invalid_required_params_sort_sign():
+    return INVALID_REQUIRED_PARAMS_SORT_SIGN
+
+
+@pytest.fixture()
+def invalid_required_params_sort_value_case_1():
+    return INVALID_REQUIRED_PARAMS_SORT_VALUE_CASE_1
+
+
+@pytest.fixture()
+def invalid_required_params_sort_value_case_2():
+    return INVALID_REQUIRED_PARAMS_SORT_VALUE_CASE_2
