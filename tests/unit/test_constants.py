@@ -83,7 +83,6 @@ BINARY_INVALID_TEST_CASE_3 = "LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLTY4NjIyMDEyOT
                              "3R0ZXIxMixocG90dGVyMTIgUG90dGVyLDUwDQotLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tNjg2MjIwMTI5" \
                              "MzU1MzUwMjM5NjQyMzM0LS0NCg=="
 
-
 BINARY_INVALID_TEST_CASE_4 = "LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLTE5MzU5OTA5NjM5MTAyMDQyMzE3MjcyNg0KQ29udGVudC1E" \
                              "aXNwb3NpdGlvbjogZm9ybS1kYXRhOyBuYW1lPSJmaWxlIjsgZmlsZW5hbWU9ImludmFsaWRfdGVzdF9jYXNl" \
                              "NF9uZWdhdGl2ZV9zYWxhcnkuY3N2Ig0KQ29udGVudC1UeXBlOiB0ZXh0L2Nzdg0KDQpIZWFkaW5nIEluZm9y" \
@@ -116,20 +115,20 @@ BINARY_INVALID_EMPTY_FILE = "LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLTA1NDg5NTU4NTg
                             "S0tLS0tMDU0ODk1NTg1ODMzODY5OTE4Njc2MDkyLS0NCg=="
 
 VALID_PROCESSED_DATA_TEST_CASE_1 = ['Content-Disposition: form-data; name="file"; '
-                        'filename="valid_test_case1_with_hash.csv"'
-                        '\r\nContent-Type: text/csv\r\n\r'
-                        '\nHeading Information,,,'
-                        '\ne0001,hpotter1,hpotter1 Potter,1234.00'
-                        '\ne0002,hpotter2,hpotter2 Weasley,19234.50'
-                        '\ne0003,hpotter3,hpotter3 Snape,4000.0'
-                        '\ne0004,hpotter4,hpotter4 Potter,3999.999'
-                        '\ne0005,hpotter5,hpotter5 Potter,523.4'
-                        '\ne0006,hpotter6,hpotter6 Weasley,4000.004'
-                        '\ne0007,hpotter7,hpotter7 Snape,0.0'
-                        '\ne0008,hpotter8,hpotter8 Potter,34.23'
-                        '\n#e00010,hpotter10,1hpotter'
-                        '\ne0009,hpotter9,hpotter9 Potter,34234.5'
-                        '\ne00010,hpotter10,hpotter10 Potter,134234.5\r\n', '--\r\n']
+                                    'filename="valid_test_case1_with_hash.csv"'
+                                    '\r\nContent-Type: text/csv\r\n\r'
+                                    '\nHeading Information,,,'
+                                    '\ne0001,hpotter1,hpotter1 Potter,1234.00'
+                                    '\ne0002,hpotter2,hpotter2 Weasley,19234.50'
+                                    '\ne0003,hpotter3,hpotter3 Snape,4000.0'
+                                    '\ne0004,hpotter4,hpotter4 Potter,3999.999'
+                                    '\ne0005,hpotter5,hpotter5 Potter,523.4'
+                                    '\ne0006,hpotter6,hpotter6 Weasley,4000.004'
+                                    '\ne0007,hpotter7,hpotter7 Snape,0.0'
+                                    '\ne0008,hpotter8,hpotter8 Potter,34.23'
+                                    '\n#e00010,hpotter10,1hpotter'
+                                    '\ne0009,hpotter9,hpotter9 Potter,34234.5'
+                                    '\ne00010,hpotter10,hpotter10 Potter,134234.5\r\n', '--\r\n']
 
 VALID_PROCESSED_DATA_TEST_CASE_2 = ['Content-Disposition: form-data; name="file"; '
                                     'filename="valid_test_case2_with_chinese_character.csv"'
@@ -148,20 +147,20 @@ VALID_PROCESSED_DATA_TEST_CASE_2 = ['Content-Disposition: form-data; name="file"
                                     '\ne00011,用户1,用户名1,40\r\ne00012,用户2,用户名2,50\r\n', '--\r\n']
 
 VALID_PROCESSED_DATA_TEST_CASE_3 = ['Content-Disposition: form-data; name="file"; '
-                        'filename="valid_test_case3_with_last_line_empty.csv"'
-                        '\r\nContent-Type: text/csv\r\n\r'
-                        '\nHeading Information,,,'
-                        '\ne0001,hpotter1,hpotter1 Potter,1234.00'
-                        '\ne0002,hpotter2,hpotter2 Weasley,19234.50'
-                        '\ne0003,hpotter3,hpotter3 Snape,4000.0'
-                        '\ne0004,hpotter4,hpotter4 Potter,3999.999'
-                        '\ne0005,hpotter5,hpotter5 Potter,523.4'
-                        '\ne0006,hpotter6,hpotter6 Weasley,4000.004'
-                        '\ne0007,hpotter7,hpotter7 Snape,0.0'
-                        '\ne0008,hpotter8,hpotter8 Potter,34.23'
-                        '\n#e00010,hpotter10,1hpotter'
-                        '\ne0009,hpotter9,hpotter9 Potter,34234.5'
-                        '\ne00010,hpotter10,hpotter10 Potter,134234.5\n\r\n', '--\r\n']
+                                    'filename="valid_test_case3_with_last_line_empty.csv"'
+                                    '\r\nContent-Type: text/csv\r\n\r'
+                                    '\nHeading Information,,,'
+                                    '\ne0001,hpotter1,hpotter1 Potter,1234.00'
+                                    '\ne0002,hpotter2,hpotter2 Weasley,19234.50'
+                                    '\ne0003,hpotter3,hpotter3 Snape,4000.0'
+                                    '\ne0004,hpotter4,hpotter4 Potter,3999.999'
+                                    '\ne0005,hpotter5,hpotter5 Potter,523.4'
+                                    '\ne0006,hpotter6,hpotter6 Weasley,4000.004'
+                                    '\ne0007,hpotter7,hpotter7 Snape,0.0'
+                                    '\ne0008,hpotter8,hpotter8 Potter,34.23'
+                                    '\n#e00010,hpotter10,1hpotter'
+                                    '\ne0009,hpotter9,hpotter9 Potter,34234.5'
+                                    '\ne00010,hpotter10,hpotter10 Potter,134234.5\n\r\n', '--\r\n']
 
 INVALID_PROCESSED_DATA_TEST_CASE_1 = ['Content-Disposition: form-data; name="file"; '
                                       'filename="invalid_test_case1_extra_one_column_record.csv"\r'
@@ -180,7 +179,6 @@ INVALID_PROCESSED_DATA_TEST_CASE_1 = ['Content-Disposition: form-data; name="fil
                                       '\ne00011,hpotter11,hpotter11 Potter,40\r'
                                       '\ne00012,hpotter12,hpotter12 Potter,50\r\n', '--\r\n']
 
-
 INVALID_PROCESSED_DATA_TEST_CASE_2 = ['Content-Disposition: form-data; name="file"; '
                                       'filename="invalid_test_case2_missing_one_column_record.csv"\r'
                                       '\nContent-Type: text/csv\r\n\r'
@@ -197,7 +195,6 @@ INVALID_PROCESSED_DATA_TEST_CASE_2 = ['Content-Disposition: form-data; name="fil
                                       '\ne00010,hpotter10,hpotter10 Potter,134234.5\r'
                                       '\ne00011,hpotter11,hpotter11 Potter,40\r'
                                       '\ne00012,hpotter12,hpotter12 Potter,50\r\n', '--\r\n']
-
 
 INVALID_PROCESSED_DATA_TEST_CASE_3 = ['Content-Disposition: form-data; name="file"; '
                                       'filename="invalid_test_case3_invalid_salary.csv"\r'
@@ -250,11 +247,9 @@ INVALID_DUPLICATE_ID_PROCESSED_DATA = ['Content-Disposition: form-data; name="fi
                                        '\ne0009,hpotter9,hpotter9 Potter,34234.5'
                                        '\ne00010,hpotter10,hpotter10 Potter,134234.5\n\r\n', '--\r\n']
 
-
 INVALID_EMPTY_FILE_PROCESSED_DATA = ['Content-Disposition: form-data; name="file"; '
                                      'filename="invalid_test_empty_file.csv"\r'
                                      '\nContent-Type: text/csv\r\n\r\n\r\n', '--\r\n']
-
 
 TEST_CASE_TEMPLATE = {
     "body": None,
@@ -318,4 +313,3 @@ TEST_CASE_TEMPLATE = {
         "protocol": "HTTP/1.1"
     }
 }
-
