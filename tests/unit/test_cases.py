@@ -142,3 +142,8 @@ def user_input_invalid_test_empty_file():
     empty_file_test_case = TEST_CASE_TEMPLATE
     empty_file_test_case["body"] = BINARY_INVALID_EMPTY_FILE
     return empty_file_test_case
+
+
+@pytest.fixture()
+def sample_lock_id():
+    return SAMPLE_LOCK_ID
