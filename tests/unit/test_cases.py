@@ -155,7 +155,7 @@ def valid_requested_params():
 
 
 @pytest.fixture()
-def invalid_query_string():
+def invalid_requested_params():
     return INVALID_REQUIRED_PARAMS
 
 
