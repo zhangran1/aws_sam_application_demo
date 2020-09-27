@@ -29,52 +29,52 @@ def get_files(file_name):
 def test_api_valid_test_case_1():
     ret = requests.post(FILE_UPLOAD_URL, headers=HEADERS, files=get_files(VALID_TEST_CASE_1), verify=False)
     assert ret.status_code == HTTP_SUCCESS_STATUS
-    assert ret.json()["message"] == SUCCESS_MSG_RESPONSE
+    assert ret.json()["results"] == SUCCESS_MSG_RESPONSE
 
 
 def test_api_valid_test_case_2():
     ret = requests.post(FILE_UPLOAD_URL, headers=HEADERS, files=get_files(VALID_TEST_CASE_2), verify=False)
     assert ret.status_code == HTTP_SUCCESS_STATUS
-    assert ret.json()["message"] == SUCCESS_MSG_RESPONSE
+    assert ret.json()["results"] == SUCCESS_MSG_RESPONSE
 
 
 def test_api_valid_test_case_3():
     ret = requests.post(FILE_UPLOAD_URL, headers=HEADERS, files=get_files(VALID_TEST_CASE_3), verify=False)
     assert ret.status_code == HTTP_SUCCESS_STATUS
-    assert ret.json()["message"] == SUCCESS_MSG_RESPONSE
+    assert ret.json()["results"] == SUCCESS_MSG_RESPONSE
 
 
 def test_api_invalid_test_case_1():
     ret = requests.post(FILE_UPLOAD_URL, headers=HEADERS, files=get_files(INVALID_TEST_CASE_1), verify=False)
     assert ret.status_code == HTTP_FAIL_STATUS
-    assert ret.json()["message"] == FAIL_VALIDATION_FAIL
+    assert ret.json()["results"] == FAIL_VALIDATION_FAIL
 
 
 def test_api_invalid_test_case_2():
     ret = requests.post(FILE_UPLOAD_URL, headers=HEADERS, files=get_files(INVALID_TEST_CASE_2), verify=False)
     assert ret.status_code == HTTP_FAIL_STATUS
-    assert ret.json()["message"] == FAIL_VALIDATION_FAIL
+    assert ret.json()["results"] == FAIL_VALIDATION_FAIL
 
 
 def test_api_invalid_test_case_3():
     ret = requests.post(FILE_UPLOAD_URL, headers=HEADERS, files=get_files(INVALID_TEST_CASE_3), verify=False)
     assert ret.status_code == HTTP_FAIL_STATUS
-    assert ret.json()["message"] == FAIL_VALIDATION_FAIL
+    assert ret.json()["results"] == FAIL_VALIDATION_FAIL
 
 
 def test_api_invalid_duplicate_login():
     ret = requests.post(FILE_UPLOAD_URL, headers=HEADERS, files=get_files(INVALID_TEST_CASE_4), verify=False)
     assert ret.status_code == HTTP_FAIL_STATUS
-    assert ret.json()["message"] == FAIL_VALIDATION_FAIL
+    assert ret.json()["results"] == FAIL_VALIDATION_FAIL
 
 
 def test_api_invalid_empty_file():
     ret = requests.post(FILE_UPLOAD_URL, headers=HEADERS, files=get_files(INVALID_TEST_EMPTY_FILE), verify=False)
     assert ret.status_code == HTTP_FAIL_STATUS
-    assert ret.json()["message"] == FAIL_VALIDATION_FAIL
+    assert ret.json()["results"] == FAIL_VALIDATION_FAIL
 
 
 def test_api_invalid_duplicate_id_login():
     ret = requests.post(FILE_UPLOAD_URL, headers=HEADERS, files=get_files(INVALID_DUPLICATE_ID_LOGIN), verify=False)
     assert ret.status_code == HTTP_FAIL_STATUS
-    assert ret.json()["message"] == FAIL_VALIDATION_FAIL
+    assert ret.json()["results"] == FAIL_VALIDATION_FAIL
