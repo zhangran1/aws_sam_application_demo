@@ -48,6 +48,7 @@ def test_invalid_upload_data_parser(invalid_upload_data_parser):
 
 
 def test_user_input_valid_test_case_1(user_input_valid_test_case_1):
+    release_db_lock()
     ret = upload.lambda_handler(user_input_valid_test_case_1, "")
     data = json.loads(ret["body"])
     assert data["message"] == SUCCESS_MSG_RESPONSE
@@ -55,6 +56,7 @@ def test_user_input_valid_test_case_1(user_input_valid_test_case_1):
 
 
 def test_user_input_valid_test_case_2(user_input_valid_test_case_2):
+    release_db_lock()
     ret = upload.lambda_handler(user_input_valid_test_case_2, "")
     data = json.loads(ret["body"])
     assert data["message"] == SUCCESS_MSG_RESPONSE
@@ -62,6 +64,7 @@ def test_user_input_valid_test_case_2(user_input_valid_test_case_2):
 
 
 def test_user_input_valid_test_case_3(user_input_valid_test_case_3):
+    release_db_lock()
     ret = upload.lambda_handler(user_input_valid_test_case_3, "")
     data = json.loads(ret["body"])
     assert data["message"] == SUCCESS_MSG_RESPONSE
@@ -69,6 +72,7 @@ def test_user_input_valid_test_case_3(user_input_valid_test_case_3):
 
 
 def test_user_input_invalid_test_case_1(user_input_invalid_test_case_1):
+    release_db_lock()
     ret = upload.lambda_handler(user_input_invalid_test_case_1, "")
     data = json.loads(ret["body"])
     assert data["message"] == FAIL_VALIDATION_FAIL
@@ -76,6 +80,7 @@ def test_user_input_invalid_test_case_1(user_input_invalid_test_case_1):
 
 
 def test_user_input_invalid_test_case_2(user_input_invalid_test_case_2):
+    release_db_lock()
     ret = upload.lambda_handler(user_input_invalid_test_case_2, "")
     data = json.loads(ret["body"])
     assert data["message"] == FAIL_VALIDATION_FAIL
@@ -83,6 +88,7 @@ def test_user_input_invalid_test_case_2(user_input_invalid_test_case_2):
 
 
 def test_user_input_invalid_test_case_3(user_input_invalid_test_case_3):
+    release_db_lock()
     ret = upload.lambda_handler(user_input_invalid_test_case_3, "")
     data = json.loads(ret["body"])
     assert data["message"] == FAIL_VALIDATION_FAIL
@@ -90,6 +96,7 @@ def test_user_input_invalid_test_case_3(user_input_invalid_test_case_3):
 
 
 def test_user_input_invalid_test_case_4(user_input_invalid_test_case_4):
+    release_db_lock()
     ret = upload.lambda_handler(user_input_invalid_test_case_4, "")
     data = json.loads(ret["body"])
     assert data["message"] == FAIL_VALIDATION_FAIL
@@ -97,6 +104,7 @@ def test_user_input_invalid_test_case_4(user_input_invalid_test_case_4):
 
 
 def test_user_input_invalid_duplicate_id_login(user_input_invalid_duplicate_id_login):
+    release_db_lock()
     ret = upload.lambda_handler(user_input_invalid_duplicate_id_login, "")
     data = json.loads(ret["body"])
     assert data["message"] == FAIL_VALIDATION_FAIL
@@ -104,6 +112,7 @@ def test_user_input_invalid_duplicate_id_login(user_input_invalid_duplicate_id_l
 
 
 def test_user_input_invalid_test_empty_file(user_input_invalid_test_empty_file):
+    release_db_lock()
     ret = upload.lambda_handler(user_input_invalid_test_empty_file, "")
     data = json.loads(ret["body"])
     assert data["message"] == FAIL_VALIDATION_FAIL
