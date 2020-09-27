@@ -9,6 +9,22 @@ DB_FAILED_OPERATION = "Failed"
 SAMPLE_LOCK_ID = "228b27e3-2a74-4849-9eba"
 VALID_REQUIRED_PARAMS = {'minSalary': '0', 'maxSalary': '4000', 'offset': '0', 'limit': '30', 'sort': '-name'}
 INVALID_REQUIRED_PARAMS = {'minSalary': '0', 'offset': '0', 'limit': '30', 'sort': '-name'}
+INVALID_REQUIRED_PARAMS_NEGATIVE_MIN_SALARY = {'minSalary': '-100', 'maxSalary': '4000',
+                                            'offset': '0', 'limit': '30', 'sort': '-name'}
+INVALID_REQUIRED_PARAMS_NEGATIVE_SALARY = {'minSalary': '0', 'maxSalary': '-4000',
+                                            'offset': '0', 'limit': '30', 'sort': '-name'}
+INVALID_REQUIRED_PARAMS_OFFSET = {'minSalary': '0', 'maxSalary': '-4000',
+                                            'offset': '-10', 'limit': '30', 'sort': '-name'}
+INVALID_REQUIRED_PARAMS_LIMIT = {'minSalary': '0', 'maxSalary': '4000',
+                                           'offset': '0', 'limit': '-1', 'sort': '-name'}
+INVALID_REQUIRED_PARAMS_SORT_SIGN = {'minSalary': '0', 'maxSalary': '4000',
+                                           'offset': '0', 'limit': '30', 'sort': 'name'}
+
+INVALID_REQUIRED_PARAMS_SORT_VALUE_CASE_1 = {'minSalary': '0', 'maxSalary': '4000',
+                                           'offset': '0', 'limit': '30', 'sort': '+'}
+
+INVALID_REQUIRED_PARAMS_SORT_VALUE_CASE_2 = {'minSalary': '0', 'maxSalary': '4000',
+                                           'offset': '0', 'limit': '30', 'sort': '+time'}
 
 BINARY_VALID_TEST_CASE_1 = "LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLTk5NDUwNzIzMzc2MDY1MDM4OTYwNzkyNg0KQ29udGVudC1EaXN" \
                            "wb3NpdGlvbjogZm9ybS1kYXRhOyBuYW1lPSJmaWxlIjsgZmlsZW5hbWU9InZhbGlkX3Rlc3RfY2FzZTFfd2l0aF" \
