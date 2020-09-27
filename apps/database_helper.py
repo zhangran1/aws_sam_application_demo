@@ -122,7 +122,7 @@ def check_existing_employee(employee_id):
             pass
 
 
-def check_db_lock(db_lock_id):
+def check_db_lock(db_lock_id=database_lock_id):
     """Check is there any file upload process being in place
 
     Returns:
@@ -157,7 +157,7 @@ def check_db_lock(db_lock_id):
             pass
 
 
-def get_db_lock(db_lock_id):
+def get_db_lock(db_lock_id=database_lock_id):
     """Get db lock for user file upload.
 
     Returns:
@@ -188,7 +188,7 @@ def get_db_lock(db_lock_id):
             pass
 
 
-def release_db_lock(db_lock_id):
+def release_db_lock(db_lock_id=database_lock_id):
     """Release db lock for user file upload.
 
     Returns:
