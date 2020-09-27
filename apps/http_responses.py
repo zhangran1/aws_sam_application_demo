@@ -5,12 +5,14 @@ from constants import *
 logger = logging.getLogger()
 
 
-def http_standard_return(valid_input: bool):
+def http_standard_return(valid_input: bool, success_msg=SUCCESS_MSG_RESPONSE, failed_msg=FAIL_VALIDATION_FAIL):
     """
     Construct standard HTTP response based on valid_input.
 
     Args:
         valid_input: boolean input to indicate true or false of file validation.
+        success_msg: Successful message, default "File uploaded successfully"
+        failed_msg: Failed upload message, default "File Validation Failed"
 
     Returns:
         Json response contains the following fields:
@@ -20,10 +22,10 @@ def http_standard_return(valid_input: bool):
 
     if valid_input:
         status_code = HTTP_SUCCESS_STATUS
-        response_message = SUCCESS_MSG_RESPONSE
+        response_message = success_msg
     else:
         status_code = HTTP_FAIL_STATUS
-        response_message = FAIL_VALIDATION_FAIL
+        response_message = failed_msg
 
     return {
         "statusCode": status_code,
