@@ -1,9 +1,10 @@
 import logging
-
+import csv
 import http_responses
 import multipart_form_parser
 
 from utils import *
+from constants import *
 
 logger = logging.getLogger()
 
@@ -30,7 +31,11 @@ def lambda_handler(event, context):
     validation = False
     for record in multiform_data[:-1]:
         csv_data = csv.reader(record.splitlines(), delimiter=',')
-        ss = multipart_form_parser.UploadDataParser(csv_data)
-        validation = ss.valid_input
+        user_data = multipart_form_parser.UploadDataParser(csv_data)
+        validation = user_data.valid_input
+        if validation:
+            process_status = upload_csv_record_to_db(user_data.employee_record)
+            if process_status == DB_FAILED_OPERATION:
+                validation = False
 
     return http_responses.http_standard_return(validation)
