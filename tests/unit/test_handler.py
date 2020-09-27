@@ -124,3 +124,14 @@ def test_employee_creation(employee_object):
     assert employee_object.login == "john1"
     assert employee_object.name == "John Smith"
     assert employee_object.salary == 100.5
+
+
+def test_create_single_employee_record(employee_object):
+    ret = create_employee(employee_object)
+    assert ret == DB_SUCCESS_OPERATION
+
+
+def test_create_multiple_employee_records(valid_employee_records):
+    for single_employee_record in valid_employee_records:
+        ret = create_employee(single_employee_record)
+        assert ret == DB_SUCCESS_OPERATION
