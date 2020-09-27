@@ -117,3 +117,10 @@ def test_check_existing_employee():
     new_employee_id = NONE_EXIST_EMPLOYEE
     record_count = check_existing_employee(new_employee_id)
     assert record_count == 0
+
+
+def test_employee_creation(employee_object):
+    assert employee_object.employee_id == "test00001"
+    assert employee_object.login == "john1"
+    assert employee_object.name == "John Smith"
+    assert employee_object.salary == 100.5
