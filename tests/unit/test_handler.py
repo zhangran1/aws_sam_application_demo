@@ -2,76 +2,166 @@ import sys
 
 sys.path.append('././apps/')
 
-import json
-
-import pytest
-
 from apps import upload
+from tests.unit.test_cases import *
+from tests.unit.test_constants import *
+from tests.unit.test_class_setup import *
+from apps.http_responses import *
+from apps.utils import *
+from apps.database_helper import *
 
 
-@pytest.fixture()
-def apigw_event():
-    """ Generates API GW Event"""
-
-    return {
-        "body": '{ "test": "body"}',
-        "resource": "/{proxy+}",
-        "requestContext": {
-            "resourceId": "123456",
-            "apiId": "1234567890",
-            "resourcePath": "/{proxy+}",
-            "httpMethod": "POST",
-            "requestId": "c6af9ac6-7b61-11e6-9a41-93e8deadbeef",
-            "accountId": "123456789012",
-            "identity": {
-                "apiKey": "",
-                "userArn": "",
-                "cognitoAuthenticationType": "",
-                "caller": "",
-                "userAgent": "Custom User Agent String",
-                "user": "",
-                "cognitoIdentityPoolId": "",
-                "cognitoIdentityId": "",
-                "cognitoAuthenticationProvider": "",
-                "sourceIp": "127.0.0.1",
-                "accountId": "",
-            },
-            "stage": "prod",
-        },
-        "queryStringParameters": {"foo": "bar"},
-        "headers": {
-            "Via": "1.1 08f323deadbeefa7af34d5feb414ce27.cloudfront.net (CloudFront)",
-            "Accept-Language": "en-US,en;q=0.8",
-            "CloudFront-Is-Desktop-Viewer": "true",
-            "CloudFront-Is-SmartTV-Viewer": "false",
-            "CloudFront-Is-Mobile-Viewer": "false",
-            "X-Forwarded-For": "127.0.0.1, 127.0.0.2",
-            "CloudFront-Viewer-Country": "US",
-            "Accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
-            "Upgrade-Insecure-Requests": "1",
-            "X-Forwarded-Port": "443",
-            "Host": "1234567890.execute-api.us-east-1.amazonaws.com",
-            "X-Forwarded-Proto": "https",
-            "X-Amz-Cf-Id": "aaaaaaaaaae3VYQb9jd-nvCd-de396Uhbp027Y2JvkCPNLmGJHqlaA==",
-            "CloudFront-Is-Tablet-Viewer": "false",
-            "Cache-Control": "max-age=0",
-            "User-Agent": "Custom User Agent String",
-            "CloudFront-Forwarded-Proto": "https",
-            "Accept-Encoding": "gzip, deflate, sdch",
-        },
-        "pathParameters": {"proxy": "/examplepath"},
-        "httpMethod": "POST",
-        "stageVariables": {"baz": "qux"},
-        "path": "/examplepath",
-    }
-
-
-def test_lambda_handler(apigw_event, mocker):
-
-    ret = upload.lambda_handler(apigw_event, "")
+def test_http_response_success():
+    validation = True
+    ret = http_standard_return(validation)
     data = json.loads(ret["body"])
+    assert data["message"] == SUCCESS_MSG_RESPONSE
+    assert ret["statusCode"] == HTTP_SUCCESS_STATUS
 
-    assert ret["statusCode"] == 200
-    assert "message" in ret["body"]
-    assert data["message"] == "hello world"
-    # assert "location" in data.dict_keys()
+
+def test_http_response_fail():
+    validation = False
+    ret = http_standard_return(validation)
+    data = json.loads(ret["body"])
+    assert data["message"] == FAIL_VALIDATION_FAIL
+    assert ret["statusCode"] == HTTP_FAIL_STATUS
+
+
+def test_filter_csv_data():
+    processed_data = filter_csv_data(BINARY_VALID_TEST_CASE_1)
+    logger.info(processed_data)
+    assert processed_data == VALID_PROCESSED_DATA_TEST_CASE_1
+
+
+def test_filter_csv_data_test_case_3():
+    processed_data = filter_csv_data(BINARY_VALID_TEST_CASE_3)
+    logger.info(processed_data)
+    assert processed_data == VALID_PROCESSED_DATA_TEST_CASE_3
+
+
+def test_valid_multi_part_form_parser(valid_upload_data_parser):
+    assert valid_upload_data_parser.valid_input is True
+
+
+def test_invalid_upload_data_parser(invalid_upload_data_parser):
+    assert invalid_upload_data_parser.valid_input is False
+
+
+def test_user_input_valid_test_case_1(user_input_valid_test_case_1):
+    release_db_lock()
+    ret = upload.lambda_handler(user_input_valid_test_case_1, "")
+    data = json.loads(ret["body"])
+    assert data["message"] == SUCCESS_MSG_RESPONSE
+    assert ret["statusCode"] == HTTP_SUCCESS_STATUS
+
+
+def test_user_input_valid_test_case_2(user_input_valid_test_case_2):
+    release_db_lock()
+    ret = upload.lambda_handler(user_input_valid_test_case_2, "")
+    data = json.loads(ret["body"])
+    assert data["message"] == SUCCESS_MSG_RESPONSE
+    assert ret["statusCode"] == HTTP_SUCCESS_STATUS
+
+
+def test_user_input_valid_test_case_3(user_input_valid_test_case_3):
+    release_db_lock()
+    ret = upload.lambda_handler(user_input_valid_test_case_3, "")
+    data = json.loads(ret["body"])
+    assert data["message"] == SUCCESS_MSG_RESPONSE
+    assert ret["statusCode"] == HTTP_SUCCESS_STATUS
+
+
+def test_user_input_invalid_test_case_1(user_input_invalid_test_case_1):
+    release_db_lock()
+    ret = upload.lambda_handler(user_input_invalid_test_case_1, "")
+    data = json.loads(ret["body"])
+    assert data["message"] == FAIL_VALIDATION_FAIL
+    assert ret["statusCode"] == HTTP_FAIL_STATUS
+
+
+def test_user_input_invalid_test_case_2(user_input_invalid_test_case_2):
+    release_db_lock()
+    ret = upload.lambda_handler(user_input_invalid_test_case_2, "")
+    data = json.loads(ret["body"])
+    assert data["message"] == FAIL_VALIDATION_FAIL
+    assert ret["statusCode"] == HTTP_FAIL_STATUS
+
+
+def test_user_input_invalid_test_case_3(user_input_invalid_test_case_3):
+    release_db_lock()
+    ret = upload.lambda_handler(user_input_invalid_test_case_3, "")
+    data = json.loads(ret["body"])
+    assert data["message"] == FAIL_VALIDATION_FAIL
+    assert ret["statusCode"] == HTTP_FAIL_STATUS
+
+
+def test_user_input_invalid_test_case_4(user_input_invalid_test_case_4):
+    release_db_lock()
+    ret = upload.lambda_handler(user_input_invalid_test_case_4, "")
+    data = json.loads(ret["body"])
+    assert data["message"] == FAIL_VALIDATION_FAIL
+    assert ret["statusCode"] == HTTP_FAIL_STATUS
+
+
+def test_user_input_invalid_duplicate_id_login(user_input_invalid_duplicate_id_login):
+    release_db_lock()
+    ret = upload.lambda_handler(user_input_invalid_duplicate_id_login, "")
+    data = json.loads(ret["body"])
+    assert data["message"] == FAIL_VALIDATION_FAIL
+    assert ret["statusCode"] == HTTP_FAIL_STATUS
+
+
+def test_user_input_invalid_test_empty_file(user_input_invalid_test_empty_file):
+    release_db_lock()
+    ret = upload.lambda_handler(user_input_invalid_test_empty_file, "")
+    data = json.loads(ret["body"])
+    assert data["message"] == FAIL_VALIDATION_FAIL
+    assert ret["statusCode"] == HTTP_FAIL_STATUS
+
+
+def test_check_existing_employee():
+    current_employee_id = EXISTING_EMPLOYEE
+    record_count = check_existing_employee(current_employee_id)
+    assert record_count == 1
+    new_employee_id = NONE_EXIST_EMPLOYEE
+    record_count = check_existing_employee(new_employee_id)
+    assert record_count == 0
+
+
+def test_employee_creation(employee_object):
+    assert employee_object.employee_id == "test00001"
+    assert employee_object.login == "john1"
+    assert employee_object.name == "John Smith"
+    assert employee_object.salary == 100.5
+
+
+def test_create_single_employee_record(employee_object):
+    ret = create_employee(employee_object)
+    assert ret == DB_SUCCESS_OPERATION
+
+
+def test_create_multiple_employee_records(valid_employee_records):
+    ret = upload_csv_record_to_db(valid_employee_records)
+    assert ret == DB_SUCCESS_OPERATION
+
+
+def test_get_db_lock_release_process(sample_lock_id):
+    get_lock_ret = get_db_lock(sample_lock_id)
+    assert get_lock_ret == DB_SUCCESS_OPERATION
+    lock_status_ret = check_db_lock(sample_lock_id)
+    assert lock_status_ret is True
+    release_lock_ret = release_db_lock(sample_lock_id)
+    assert release_lock_ret == DB_SUCCESS_OPERATION
+    ret = check_db_lock(sample_lock_id)
+    assert ret is False
+
+
+def test_release_db_lock_get_process(sample_lock_id):
+    release_lock_ret = release_db_lock(sample_lock_id)
+    assert release_lock_ret == DB_SUCCESS_OPERATION
+    ret = check_db_lock(sample_lock_id)
+    assert ret is False
+    get_lock_ret = get_db_lock(sample_lock_id)
+    assert get_lock_ret == DB_SUCCESS_OPERATION
+    lock_status_ret = check_db_lock(sample_lock_id)
+    assert lock_status_ret is True

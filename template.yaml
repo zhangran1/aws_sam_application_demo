@@ -8,7 +8,7 @@ Description: >
 # More info about Globals: https://github.com/awslabs/serverless-application-model/blob/master/docs/globals.rst
 Globals:
   Function:
-    Timeout: 3
+    Timeout: 800
 
 Resources:
   UploadFunction:
@@ -18,3 +18,47 @@ Resources:
       Handler: upload.lambda_handler
       Runtime: python3.7
 
+  UploadAPIPermission:
+    Type: "AWS::Lambda::Permission"
+    DependsOn:
+      - UploadAPI
+      - UploadFunction
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref UploadFunction
+      Principal: apigateway.amazonaws.com
+
+  UploadAPI:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Dev
+      BinaryMediaTypes:
+        - multipart/form-data
+      DefinitionBody:
+        swagger: "2.0"
+        info:
+          version: 0.0.1
+          title: Upload-API
+
+        x-amazon-apigateway-request-validators:
+          all:
+            validateRequestBody: true
+            validateRequestParameters: true
+          params-only:
+            validateRequestBody: false
+            validateRequestParameters: true
+
+        x-amazon-apigateway-request-validator: all
+        paths:
+          "/users/upload":
+            post:
+              consumes:
+                - application/json
+              x-amazon-apigateway-integration: # More information about x-amazon-apigateway-integration https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-swagger-extensions-integration.html
+                httpMethod: POST   # More information why post is required https://stackoverflow.com/questions/41371970/accessdeniedexception-unable-to-determine-service-operation-name-to-be-authoriz
+                type: aws_proxy
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${UploadFunction.Arn}/invocations
+              responses: {}
+              security:
+                  - MyUserPool: []
