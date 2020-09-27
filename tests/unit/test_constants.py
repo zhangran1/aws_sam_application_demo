@@ -2,6 +2,8 @@ SUCCESS_MSG_RESPONSE = "File uploaded successfully"
 FAIL_VALIDATION_FAIL = "File Validation Failed"
 HTTP_SUCCESS_STATUS = 200
 HTTP_FAIL_STATUS = 400
+EXISTING_EMPLOYEE = "test id1"
+NONE_EXIST_EMPLOYEE = "ZR"
 
 BINARY_VALID_TEST_CASE_1 = "LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLTk5NDUwNzIzMzc2MDY1MDM4OTYwNzkyNg0KQ29udGVudC1EaXN" \
                            "wb3NpdGlvbjogZm9ybS1kYXRhOyBuYW1lPSJmaWxlIjsgZmlsZW5hbWU9InZhbGlkX3Rlc3RfY2FzZTFfd2l0aF" \
@@ -313,3 +315,4 @@ TEST_CASE_TEMPLATE = {
         "protocol": "HTTP/1.1"
     }
 }
+
