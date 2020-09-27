@@ -136,7 +136,23 @@ def test_create_multiple_employee_records(valid_employee_records):
     assert ret == DB_SUCCESS_OPERATION
 
 
-def test_check_db_lock():
-    sample_lock = "228b27e3-2a74-4849-9eba"
-    ret = check_db_lock(sample_lock)
-    assert ret == True
+def test_get_db_lock_release_process(sample_lock_id):
+    get_lock_ret = get_db_lock(sample_lock_id)
+    assert get_lock_ret == DB_SUCCESS_OPERATION
+    lock_status_ret = check_db_lock(sample_lock_id)
+    assert lock_status_ret is True
+    release_lock_ret = release_db_lock(sample_lock_id)
+    assert release_lock_ret == DB_SUCCESS_OPERATION
+    ret = check_db_lock(sample_lock_id)
+    assert ret is False
+
+
+def test_release_db_lock_get_process(sample_lock_id):
+    release_lock_ret = release_db_lock(sample_lock_id)
+    assert release_lock_ret == DB_SUCCESS_OPERATION
+    ret = check_db_lock(sample_lock_id)
+    assert ret is False
+    get_lock_ret = get_db_lock(sample_lock_id)
+    assert get_lock_ret == DB_SUCCESS_OPERATION
+    lock_status_ret = check_db_lock(sample_lock_id)
+    assert lock_status_ret is True
