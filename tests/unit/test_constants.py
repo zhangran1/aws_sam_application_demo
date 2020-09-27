@@ -7,6 +7,8 @@ NONE_EXIST_EMPLOYEE = "ZR"
 DB_SUCCESS_OPERATION = "OK"
 DB_FAILED_OPERATION = "Failed"
 SAMPLE_LOCK_ID = "228b27e3-2a74-4849-9eba"
+VALID_REQUIRED_PARAMS = {'minSalary': '0', 'maxSalary': '4000', 'offset': '0', 'limit': '30', 'sort': '-name'}
+INVALID_REQUIRED_PARAMS = {'minSalary': '0', 'offset': '0', 'limit': '30', 'sort': '-name'}
 
 BINARY_VALID_TEST_CASE_1 = "LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLTk5NDUwNzIzMzc2MDY1MDM4OTYwNzkyNg0KQ29udGVudC1EaXN" \
                            "wb3NpdGlvbjogZm9ybS1kYXRhOyBuYW1lPSJmaWxlIjsgZmlsZW5hbWU9InZhbGlkX3Rlc3RfY2FzZTFfd2l0aF" \
