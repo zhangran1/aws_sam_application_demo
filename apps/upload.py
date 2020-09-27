@@ -25,6 +25,12 @@ def lambda_handler(event, context):
         1. statusCode: 200 (File upload successful); 400 (File upload failed);
         2. body: Json data contains return standard message based on valid_input value.
     """
+    db_lock_status = get_db_lock_status()
+    if db_lock_status:
+        # if db lock is in use, return error message to indicate that the current upload cannot be proceed
+        http_status = False
+        current_upload_error_msg = "Another file is being processed, upload failed"
+        return http_responses.http_standard_return(http_status, failed_msg=current_upload_error_msg)
 
     multiform_data = filter_csv_data(event['body'])
 
