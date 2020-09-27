@@ -168,45 +168,45 @@ def test_release_db_lock_get_process(sample_lock_id):
 
 
 def test_query_string_valid_case(valid_requested_params):
-    ret = query_string_validation(valid_requested_params)
+    ret = requested_params_validation(valid_requested_params)
     assert ret is True
 
 
 def test_invalid_requested_params(invalid_requested_params):
-    ret = query_string_validation(invalid_requested_params)
+    ret = requested_params_validation(invalid_requested_params)
     assert ret is False
 
 
 def test_invalid_required_params_negative_min_salary(invalid_required_params_negative_min_salary):
-    ret = query_string_validation(invalid_required_params_negative_min_salary)
+    ret = requested_params_validation(invalid_required_params_negative_min_salary)
     assert ret is False
 
 
 def test_invalid_required_params_negative_salary(invalid_required_params_negative_salary):
-    ret = query_string_validation(invalid_required_params_negative_salary)
+    ret = requested_params_validation(invalid_required_params_negative_salary)
     assert ret is False
 
 
 def test_invalid_required_params_offset(invalid_required_params_offset):
-    ret = query_string_validation(invalid_required_params_offset)
+    ret = requested_params_validation(invalid_required_params_offset)
     assert ret is False
 
 
 def test_invalid_required_params_limit(invalid_required_params_limit):
-    ret = query_string_validation(invalid_required_params_limit)
+    ret = requested_params_validation(invalid_required_params_limit)
     assert ret is False
 
 
 def test_invalid_required_params_sort_sign(invalid_required_params_sort_sign):
-    ret = query_string_validation(invalid_required_params_sort_sign)
+    ret = requested_params_validation(invalid_required_params_sort_sign)
     assert ret is False
 
 
 def test_invalid_required_params_sort_value_case_1(invalid_required_params_sort_value_case_1):
-    ret = query_string_validation(invalid_required_params_sort_value_case_1)
+    ret = requested_params_validation(invalid_required_params_sort_value_case_1)
     assert ret is False
 
 
 def test_invalid_required_params_sort_value_case_2(invalid_required_params_sort_value_case_2):
-    ret = query_string_validation(invalid_required_params_sort_value_case_2)
+    ret = requested_params_validation(invalid_required_params_sort_value_case_2)
     assert ret is False
