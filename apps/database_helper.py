@@ -1,8 +1,11 @@
 import logging
 
+from datetime import datetime
+import pytz
 import psycopg2
 
 from db_config import *
+from constants import *
 
 logger = logging.getLogger()
 
@@ -19,6 +22,66 @@ def make_connection():
     conn = psycopg2.connect(conn_str)
     conn.autocommit = True
     return conn
+
+
+def create_employee(employee_record):
+    """Take in a Employee record. If the employee id exist in database, the existing record will be
+       updated. If the existing employee id does not exist in database, a new record will be created
+    Args:
+        employee_record (Employee): Single Employee records to be created or updated.
+
+    Returns:
+        Returns response message to indicate the status of database operation:
+         1. DB_FAILED_OPERATION: Failed
+         2. DB_SUCCESS_OPERATION: OK
+    """
+    try:
+        employee_record_update = True
+        cnx = make_connection()
+        cursor = cnx.cursor()
+
+        create_new_record = ("insert into development.employee(id, login, name, salary) "
+                             "values (%s, %s, %s, %s)")
+
+        update_existing_record = ("update development.employee set login = %s, name = %s, salary = %s where id = %s")
+
+        new_record_details = ("insert into development.employ_create_details(created_at, employee_id) "
+                              "values (%s, %s)")
+
+        update_record_details = ("update development.employ_create_details set updated_at = %s where employee_id = %s")
+
+        # todo concurrent update is not handled at the moment, to be implemented at later time
+        record_count = check_existing_employee(employee_record.employee_id)
+        current_time = str(datetime.now(pytz.timezone("Asia/Singapore")))
+        if record_count == 1:
+
+            cursor.execute(update_existing_record, (employee_record.login,
+                                                    employee_record.name, employee_record.salary,
+                                                    employee_record.employee_id))
+            cursor.execute(update_record_details, (current_time, employee_record.employee_id))
+
+        elif record_count == 0:
+            cursor.execute(create_new_record, (employee_record.employee_id,
+                                               employee_record.login,
+                                               employee_record.name,
+                                               employee_record.salary))
+
+            cursor.execute(new_record_details, (current_time, employee_record.employee_id))
+
+        # todo check whether the above operation performed successfully
+        # can be done by via row count, or other postgres built in messages
+
+        return DB_SUCCESS_OPERATION
+
+    except Exception as e:
+        logger.error(e)
+        logger.error("Failed to update Record")
+        return DB_FAILED_OPERATION
+    finally:
+        try:
+            cnx.close()
+        except:
+            pass
 
 
 def check_existing_employee(employee_id):
