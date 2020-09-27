@@ -4,6 +4,7 @@ import database_helper
 from constants import *
 from database_helper import *
 
+
 def filter_csv_data(multi_form_data):
     """Process event body input and return processed data.
     Original raw data format for multi-format data:
@@ -40,7 +41,6 @@ def upload_csv_record_to_db(employee_records):
         Returns response message to indicate the status of database operation:
          1. DB_FAILED_OPERATION: Failed
          2. DB_SUCCESS_OPERATION: OK
-
     """
     upload_status = DB_FAILED_OPERATION
     database_helper.get_db_lock()
@@ -57,12 +57,48 @@ def get_db_lock_status(db_lock=database_lock_id):
     return check_db_lock(db_lock)
 
 
-def query_string_validation(query_string):
-    validate_all_request_param = all(param in query_string.keys() for param in REQUIRED_PARAMS)
+def requested_params_validation(requested_params):
+    """Validate query string fields and parameter types
+
+        Args:
+        requested_params (Dict): Request parameters include the following fields with restrictions:
+                    1.minSalary: assume only take in integer minimum value is 0
+                    2.maxSalary: integer
+                    3.offset: integer minimum value is 0
+                    4.limit: 1 to 30 integer value
+                    5.sort: String start with "-" or "+", only can sort by "id", "name", "login", "salary"
+
+        Returns response message to indicate the status of database operation:
+         1. Valid query string: True
+         2. Invalid query string: False
+    """
+    invalid = False
+    valid = True
+    validate_all_request_param = all(
+        param in requested_params.keys() and len(requested_params[param]) > 0 for param in REQUIRED_PARAMS)
 
     if not validate_all_request_param:
-        return validate_all_request_param
+        return invalid
 
-    return validate_all_request_param
+    try:
+        min_salary = int(requested_params["minSalary"])
+        max_salary = int(requested_params["maxSalary"])
+        offset = int(requested_params["offset"])
+        limit = int(requested_params["limit"])
+    except ValueError:
+        return invalid
 
+    if min_salary < 0:
+        return invalid
+    if max_salary < 0:
+        return invalid
+    if offset < 0:
+        return invalid
+    if limit <= 0 or limit > 30:
+        return invalid
+    if requested_params["sort"][0] not in ["+", "-"]:
+        return invalid
+    if requested_params["sort"][1:] not in ["id", "name", "login", "salary"]:
+        return invalid
 
+    return valid
