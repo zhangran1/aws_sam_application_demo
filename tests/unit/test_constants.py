@@ -13,26 +13,43 @@ VALID_REQUIRED_PARAMS = {'minSalary': '0', 'maxSalary': '4000', 'offset': '0', '
 INVALID_REQUIRED_PARAMS = {'minSalary': '0', 'offset': '0', 'limit': '30', 'sort': '-name'}
 
 INVALID_REQUIRED_PARAMS_NEGATIVE_MIN_SALARY = {'minSalary': '-100', 'maxSalary': '4000',
-                                            'offset': '0', 'limit': '30', 'sort': '-name'}
+                                               'offset': '0', 'limit': '30', 'sort': '-name'}
 INVALID_REQUIRED_PARAMS_NEGATIVE_SALARY = {'minSalary': '0', 'maxSalary': '-4000',
-                                            'offset': '0', 'limit': '30', 'sort': '-name'}
+                                           'offset': '0', 'limit': '30', 'sort': '-name'}
 INVALID_REQUIRED_PARAMS_OFFSET = {'minSalary': '0', 'maxSalary': '-4000',
-                                            'offset': '-10', 'limit': '30', 'sort': '-name'}
+                                  'offset': '-10', 'limit': '30', 'sort': '-name'}
 INVALID_REQUIRED_PARAMS_LIMIT = {'minSalary': '0', 'maxSalary': '4000',
-                                           'offset': '0', 'limit': '-1', 'sort': '-name'}
+                                 'offset': '0', 'limit': '-1', 'sort': '-name'}
 INVALID_REQUIRED_PARAMS_SORT_SIGN = {'minSalary': '0', 'maxSalary': '4000',
-                                           'offset': '0', 'limit': '30', 'sort': 'name'}
+                                     'offset': '0', 'limit': '30', 'sort': 'name'}
 
 INVALID_REQUIRED_PARAMS_SORT_VALUE_CASE_1 = {'minSalary': '0', 'maxSalary': '4000',
-                                           'offset': '0', 'limit': '30', 'sort': '+'}
+                                             'offset': '0', 'limit': '30', 'sort': '+'}
 
 INVALID_REQUIRED_PARAMS_SORT_VALUE_CASE_2 = {'minSalary': '0', 'maxSalary': '4000',
-                                           'offset': '0', 'limit': '30', 'sort': '+time'}
+                                             'offset': '0', 'limit': '30', 'sort': '+time'}
 
 VALID_REQUIRED_PARAMS_ASC_NAME = {'minSalary': '0', 'maxSalary': '4000', 'offset': '1', 'limit': '2', 'sort': '+name'}
-VALID_REQUIRED_PARAMS_DESC_SALARY = {'minSalary': '0', 'maxSalary': '4000', 'offset': '1', 'limit': '2', 'sort': '-salary'}
-VALID_REQUIRED_PARAMS_ASC_EMPLOYEE_ID = {'minSalary': '0', 'maxSalary': '4000', 'offset': '1', 'limit': '2', 'sort': '+id'}
-VALID_REQUIRED_PARAMS_DESC_LOGIN = {'minSalary': '0', 'maxSalary': '4000', 'offset': '1', 'limit': '2', 'sort': '-login'}
+VALID_REQUIRED_PARAMS_DESC_SALARY = {'minSalary': '0', 'maxSalary': '4000', 'offset': '1', 'limit': '2',
+                                     'sort': '-salary'}
+VALID_REQUIRED_PARAMS_ASC_EMPLOYEE_ID = {'minSalary': '0', 'maxSalary': '4000', 'offset': '1', 'limit': '2',
+                                         'sort': '+id'}
+VALID_REQUIRED_PARAMS_DESC_LOGIN = {'minSalary': '0', 'maxSalary': '4000', 'offset': '1', 'limit': '2',
+                                    'sort': '-login'}
+
+VALID_REQUIRED_PARAMS_ASC_NAME_RECORD = [{'id': 'test000012', 'login': 'adam2', 'name': 'Adam2', 'salary': '1002.5'},
+                                         {'id': 'test000013', 'login': 'adam3', 'name': 'Adam3', 'salary': '1003.5'}]
+
+VALID_REQUIRED_PARAMS_DESC_SALARY_RECORD = [
+    {"id": "e0001", "login": "hpotter1", "name": "hpotter1 Potter", "salary": "1234.00"},
+    {"id": "test000014", "login": "adam4", "name": "Adam4", "salary": "1004.5"}]
+
+VALID_REQUIRED_PARAMS_ASC_EMPLOYEE_ID_RECORD = [{'id': 'e00011', 'login': '用户1', 'name': '用户名1', 'salary': '40'},
+                                                {'id': 'e00012', 'login': '用户2', 'name': '用户名2', 'salary': '50'}]
+
+VALID_REQUIRED_PARAMS_DESC_LOGIN_RECORD = [{'id': 'e00011', 'login': '用户1', 'name': '用户名1', 'salary': '40'},
+                                           {'id': 'test00009', 'login': 'john9', 'name': 'John Smith9',
+                                            'salary': '109.5'}]
 
 BINARY_VALID_TEST_CASE_1 = "LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLTk5NDUwNzIzMzc2MDY1MDM4OTYwNzkyNg0KQ29udGVudC1EaXN" \
                            "wb3NpdGlvbjogZm9ybS1kYXRhOyBuYW1lPSJmaWxlIjsgZmlsZW5hbWU9InZhbGlkX3Rlc3RfY2FzZTFfd2l0aF" \
