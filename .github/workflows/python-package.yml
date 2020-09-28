@@ -5,7 +5,7 @@ name: techhunt
 
 on:
   push:
-    branches: [ master, upload-users, employee-dashbaord-feature]
+    branches: [ master, upload-users, employee-dashbaord-feature, crud-feature]
   pull_request:
     branches: [ master ]
 
