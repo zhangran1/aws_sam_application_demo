@@ -249,10 +249,12 @@ def retrieve_users_from_db(requested_params):
         offset = int(requested_params["offset"])
         limit = int(requested_params["limit"])
         sort_direction = requested_params["sort"][0]
-        if sort_direction == "+":
-            sort_direction = "asc"
-        elif sort_direction == "-":
+
+        if sort_direction == "-":
             sort_direction = "desc"
+        else:
+            sort_direction = "asc"
+
         sort_by = "employee." + requested_params["sort"][1:]
 
         retrieve_employee_query = ("select development.employee.id, development.employee.login, " \
@@ -290,7 +292,6 @@ def retrieve_users_from_db(requested_params):
             employee_response.append(employee_record)
 
         cursor.close()
-
         # There might need to have one API to show total number of items belong to this user
         http_status = True
         return http_responses.http_standard_return(http_status, success_msg=employee_response)
