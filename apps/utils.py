@@ -1,9 +1,11 @@
 import base64
+import logging
 import database_helper
 
 from constants import *
 from database_helper import *
 
+logger = logging.getLogger()
 
 def filter_csv_data(multi_form_data):
     """Process event body input and return processed data.
@@ -96,7 +98,8 @@ def requested_params_validation(requested_params):
         return invalid
     if limit <= 0 or limit > 30:
         return invalid
-    if requested_params["sort"][0] not in ["+", "-"]:
+
+    if requested_params["sort"][0] not in ["+", "-", " "]:
         return invalid
     if requested_params["sort"][1:] not in ["id", "name", "login", "salary"]:
         return invalid
