@@ -147,3 +147,69 @@ def user_input_invalid_test_empty_file():
 @pytest.fixture()
 def sample_lock_id():
     return SAMPLE_LOCK_ID
+
+
+@pytest.fixture()
+def valid_requested_params():
+    return VALID_REQUIRED_PARAMS
+
+
+@pytest.fixture()
+def invalid_requested_params():
+    return INVALID_REQUIRED_PARAMS
+
+
+@pytest.fixture()
+def invalid_required_params_negative_min_salary():
+    return INVALID_REQUIRED_PARAMS_NEGATIVE_MIN_SALARY
+
+
+@pytest.fixture()
+def invalid_required_params_negative_salary():
+    return INVALID_REQUIRED_PARAMS_NEGATIVE_SALARY
+
+
+@pytest.fixture()
+def invalid_required_params_offset():
+    return INVALID_REQUIRED_PARAMS_OFFSET
+
+
+@pytest.fixture()
+def invalid_required_params_limit():
+    return INVALID_REQUIRED_PARAMS_LIMIT
+
+
+@pytest.fixture()
+def invalid_required_params_sort_sign():
+    return INVALID_REQUIRED_PARAMS_SORT_SIGN
+
+
+@pytest.fixture()
+def invalid_required_params_sort_value_case_1():
+    return INVALID_REQUIRED_PARAMS_SORT_VALUE_CASE_1
+
+
+@pytest.fixture()
+def invalid_required_params_sort_value_case_2():
+    return INVALID_REQUIRED_PARAMS_SORT_VALUE_CASE_2
+
+
+@pytest.fixture()
+def valid_required_params_asc_name():
+    return VALID_REQUIRED_PARAMS_ASC_NAME
+
+
+@pytest.fixture()
+def valid_required_params_desc_salary():
+    return VALID_REQUIRED_PARAMS_DESC_SALARY
+
+
+@pytest.fixture()
+def valid_required_params_asc_employee_id():
+    return VALID_REQUIRED_PARAMS_ASC_EMPLOYEE_ID
+
+
+@pytest.fixture()
+def valid_required_params_desc_login():
+    return VALID_REQUIRED_PARAMS_DESC_LOGIN
+

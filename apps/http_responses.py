@@ -30,7 +30,7 @@ def http_standard_return(valid_input: bool, success_msg=SUCCESS_MSG_RESPONSE, fa
     return {
         "statusCode": status_code,
         "body": json.dumps({
-            "message": response_message,
+            "results": response_message,
         })}
 
 
