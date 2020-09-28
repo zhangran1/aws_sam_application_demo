@@ -27,6 +27,7 @@ def lambda_handler(event, context):
     query_string = event["queryStringParameters"]
 
     validate_all_request_param = requested_params_validation(query_string)
+
     if not validate_all_request_param:
         return http_responses.http_standard_return(validate_all_request_param, failed_msg=RETRIEVE_EMPLOYEE_FAILED)
 
