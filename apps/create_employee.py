@@ -10,8 +10,8 @@ logger = logging.getLogger()
 
 
 def lambda_handler(event, context):
-    """Lambda Function to process CRUD request for single user. User ID shall be passed from path parameter. fields to
-    be processed will be passed in from body field.
+    """Lambda Function to process create request for single user. User ID shall be passed from path parameter. fields to
+    be processed will be passed in from body field. All other three fields are required: login, name, salary
 
    Args:
     event: dict, required
