@@ -217,8 +217,7 @@ def test_select_employee_asc_name(valid_required_params_asc_name):
     data = json.loads(ret["body"])
     assert ret["statusCode"] == 200
 
-    assert data["results"] == [{'id': 'test000012', 'login': 'adam2', 'name': 'Adam2', 'salary': '1002.5'},
-                               {'id': 'test000013', 'login': 'adam3', 'name': 'Adam3', 'salary': '1003.5'}]
+    assert data["results"] == VALID_REQUIRED_PARAMS_ASC_NAME_RECORD
 
 
 def test_select_employee_desc_salary(valid_required_params_desc_salary):
@@ -226,8 +225,7 @@ def test_select_employee_desc_salary(valid_required_params_desc_salary):
     data = json.loads(ret["body"])
     assert ret["statusCode"] == 200
     assert "results" in ret["body"]
-    assert data["results"] == [{"id": "e0001", "login": "hpotter1", "name": "hpotter1 Potter", "salary": "1234.00"},
-                               {"id": "test000014", "login": "adam4", "name": "Adam4", "salary": "1004.5"}]
+    assert data["results"] == VALID_REQUIRED_PARAMS_DESC_SALARY_RECORD
 
 
 def test_select_employee_asc_id(valid_required_params_asc_employee_id):
@@ -235,8 +233,7 @@ def test_select_employee_asc_id(valid_required_params_asc_employee_id):
     data = json.loads(ret["body"])
     assert ret["statusCode"] == 200
     assert "results" in ret["body"]
-    assert data["results"] == [{'id': 'e00011', 'login': '用户1', 'name': '用户名1', 'salary': '40'},
-                               {'id': 'e00012', 'login': '用户2', 'name': '用户名2', 'salary': '50'}]
+    assert data["results"] == VALID_REQUIRED_PARAMS_ASC_EMPLOYEE_ID_RECORD
 
 
 def test_select_employee_desc_login(valid_required_params_desc_login):
@@ -244,5 +241,4 @@ def test_select_employee_desc_login(valid_required_params_desc_login):
     data = json.loads(ret["body"])
     assert ret["statusCode"] == 200
     assert "results" in ret["body"]
-    assert data["results"] == [{'id': 'e00011', 'login': '用户1', 'name': '用户名1', 'salary': '40'},
-                               {'id': 'test00009', 'login': 'john9', 'name': 'John Smith9', 'salary': '109.5'}]
+    assert data["results"] == VALID_REQUIRED_PARAMS_DESC_LOGIN_RECORD
