@@ -213,3 +213,10 @@ def valid_required_params_asc_employee_id():
 def valid_required_params_desc_login():
     return VALID_REQUIRED_PARAMS_DESC_LOGIN
 
+
+@pytest.fixture()
+def valid_get_user_by_id():
+
+    return {
+        "pathParameters": {"id": EXISTING_EMPLOYEE},
+    }
