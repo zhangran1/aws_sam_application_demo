@@ -7,6 +7,9 @@ NONE_EXIST_EMPLOYEE = "ZR"
 DB_SUCCESS_OPERATION = "OK"
 DB_FAILED_OPERATION = "Failed"
 SAMPLE_LOCK_ID = "228b27e3-2a74-4849-9eba"
+INVALID_BODY_INPUT = "Invalid json payload"
+INVALID_OPERATION_INPUT = "Employee exist cannot create"
+VALID_CR_DB_OPERATION = "Successfully Update DB"
 
 VALID_REQUIRED_PARAMS = {'minSalary': '0', 'maxSalary': '4000', 'offset': '0', 'limit': '30', 'sort': '-name'}
 
