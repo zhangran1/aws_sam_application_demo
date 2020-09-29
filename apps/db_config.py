@@ -1,6 +1,8 @@
+# if you launch dockere from local instance, this ip shall not be localhost or 127.0.0.1, please use your"
+# instance ip address instead
 endpoint = ""
 port = ""
 db_user = ""
 password = ""
 database = ""
-database_lock_id = ""
+database_lock_id = "This lock value shall match value for actual_lock under ~/scripts/init_db/init_db.py"
