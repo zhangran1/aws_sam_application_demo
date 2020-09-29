@@ -5,6 +5,7 @@ sys.path.append('././apps/')
 from apps import upload
 from apps import get_user_by_id
 from apps import create_user
+from apps import patch_user
 from tests.unit.test_cases import *
 from tests.unit.test_constants import *
 from tests.unit.test_class_setup import *
@@ -352,3 +353,33 @@ def test_create_user_valid_case(create_user_valid_case):
     select_ret = get_user_by_id.lambda_handler(create_user_valid_case, "")
     data = json.loads(select_ret["body"])
     assert select_ret["statusCode"] == 400
+
+
+def test_logical_delete_user(logical_delete_user_valid_case):
+    create_ret = create_user.lambda_handler(logical_delete_user_valid_case, "")
+    data = json.loads(create_ret["body"])
+    assert create_ret["statusCode"] == 200
+    assert "results" in create_ret["body"]
+    assert data["results"] == VALID_CR_DB_OPERATION
+
+    select_ret = select_ret = get_user_by_id.lambda_handler(logical_delete_user_valid_case, "")
+    assert select_ret["statusCode"] == 200
+
+    logger.error(logical_delete_user_valid_case["pathParameters"]["id"])
+
+    delete_ret = delete_employee(logical_delete_user_valid_case["pathParameters"]["id"])
+    assert delete_ret == DB_SUCCESS_OPERATION
+
+    select_ret = retrieve_user_record_by_id(logical_delete_user_valid_case["pathParameters"]["id"])
+    assert select_ret["statusCode"] == 400
+
+    delete_ret = db_real_delete_for_testing_purpose(logical_delete_user_valid_case["pathParameters"]["id"])
+    data = json.loads(create_ret["body"])
+    assert delete_ret["statusCode"] == 200
+
+
+def test_patch_none_exit_user(patch_none_exist_user):
+    ret = patch_user.lambda_handler(patch_none_exist_user, "")
+    data = json.loads(ret["body"])
+    assert ret["statusCode"] == 400
+    assert data["results"] == USER_DOES_NOT_EXIST_CANNOT_PATCH
