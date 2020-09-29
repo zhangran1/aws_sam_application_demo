@@ -25,4 +25,4 @@ def lambda_handler(event, context):
         2. body: Single employee records if statusCode is 200, fail response message will return if statusCode is 400.
     """
 
-    return http_responses.http_standard_return(True)
+    return database_helper.retrieve_user_record_by_id(event["pathParameters"]["id"])
