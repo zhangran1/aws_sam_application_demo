@@ -245,12 +245,21 @@ def test_select_employee_desc_login(valid_required_params_desc_login):
     assert data["results"] == VALID_REQUIRED_PARAMS_DESC_LOGIN_RECORD
 
 
-def test_retrieve_single_user_from_db(valid_get_user_by_id):
-    ret = retrieve_user_record_by_id(valid_get_user_by_id["pathParameters"]["id"])
+def test_retrieve_single_user_from_db(get_user_by_id_existing_user):
+    ret = retrieve_user_record_by_id(get_user_by_id_existing_user["pathParameters"]["id"])
     data = json.loads(ret["body"])
     assert ret["statusCode"] == 200
     assert "results" in ret["body"]
     assert data["results"] == {'id': 'test00001', 'name': 'John Smith', 'login': 'john1', 'salary': '101.5'}
+
+
+def test_retrieve_single_user_from_db_none_exist_user(get_user_by_id_none_exist_user):
+    ret = retrieve_user_record_by_id(get_user_by_id_none_exist_user["pathParameters"]["id"])
+    data = json.loads(ret["body"])
+    assert ret["statusCode"] == 400
+    assert "results" in ret["body"]
+    assert data["results"] == RETRIEVE_EMPLOYEE_FAILED
+
 
 
 
