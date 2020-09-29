@@ -3,6 +3,7 @@ import sys
 sys.path.append('././apps/')
 
 from apps import upload
+from apps import get_user_by_id
 from tests.unit.test_cases import *
 from tests.unit.test_constants import *
 from tests.unit.test_class_setup import *
@@ -242,3 +243,17 @@ def test_select_employee_desc_login(valid_required_params_desc_login):
     assert ret["statusCode"] == 200
     assert "results" in ret["body"]
     assert data["results"] == VALID_REQUIRED_PARAMS_DESC_LOGIN_RECORD
+
+
+def test_retrieve_single_user_from_db(valid_get_user_by_id):
+    ret = retrieve_user_record_by_id(valid_get_user_by_id["pathParameters"]["id"])
+    data = json.loads(ret["body"])
+    assert ret["statusCode"] == 200
+    assert "results" in ret["body"]
+    assert data["results"] == {'id': 'test00001', 'name': 'John Smith', 'login': 'john1', 'salary': '101.5'}
+
+
+
+
+
+
