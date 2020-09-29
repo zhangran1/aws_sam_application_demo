@@ -324,10 +324,13 @@ def retrieve_user_record_by_id(user_id):
 
     try:
 
-        retrieve_single_employee_query = ("select development.employee.name, development.employee.login, "
-                                          "development.employee.salary "
+        retrieve_single_employee_query = ("select development.employee.name, development.employee.login, development.employee.salary "
                                           "from development.employee "
-                                          "where employee.id = %s")
+                                          "inner join development.employ_create_details "
+                                          "on employee.id = employ_create_details.employee_id "
+                                          "where employ_create_details.delete_status = FALSE "
+                                          "and employee.id = %s")
+
 
         cnx = make_connection()
         cursor = cnx.cursor()
