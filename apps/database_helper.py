@@ -403,3 +403,42 @@ def db_real_delete_for_testing_purpose(user_id):
             cnx.close()
         except Exception as e:
             logging.exception(e)
+
+
+def delete_employee(employee_id):
+    """Take in employee id and delete the record. Only employee record delete will be updated to true, the data still
+       keep in database
+    Args:
+        employee_id (String): Id of the employee.
+
+    Returns:
+        Returns response message to indicate the status of database operation:
+         1. DB_FAILED_OPERATION: Failed
+         2. DB_SUCCESS_OPERATION: OK
+    """
+    try:
+        cnx = make_connection()
+        cursor = cnx.cursor()
+
+        # Assumption: Assume the id passed from api call is correct, strict checking shall be implemented depends on
+        #  requirements
+        current_time = str(datetime.now(pytz.timezone("Asia/Singapore")))
+        delete_record = update_delete_record_details = ("update development.employ_create_details set "
+                                                        "deleted_at = %s , delete_status = True "
+                                                        "where employee_id = %s")
+
+        cursor.execute(delete_record, (current_time, employee_id))
+        # todo check whether the above operation performed successfully
+        # can be done by via row count, or other postgres built in messages
+
+        return DB_SUCCESS_OPERATION
+
+    except Exception as e:
+        logger.error(e)
+        logger.error("Failed to update Record")
+        return DB_FAILED_OPERATION
+    finally:
+        try:
+            cnx.close()
+        except:
+            pass
