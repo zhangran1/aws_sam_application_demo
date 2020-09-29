@@ -32,6 +32,20 @@ Resources:
       Handler: get_user_by_id.lambda_handler
       Runtime: python3.7
 
+  CreateUserByIDFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: apps/
+      Handler: create_user.lambda_handler
+      Runtime: python3.7
+
+  PatchUserByIDFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: apps/
+      Handler: patch_user.lambda_handler
+      Runtime: python3.7
+
   UploadAPIPermission:
     Type: "AWS::Lambda::Permission"
     DependsOn:
@@ -41,7 +55,6 @@ Resources:
       Action: lambda:InvokeFunction
       FunctionName: !Ref UploadFunction
       Principal: apigateway.amazonaws.com
-
 
   GetUsersAPIPermission:
     Type: "AWS::Lambda::Permission"
@@ -63,7 +76,25 @@ Resources:
       FunctionName: !Ref GetUserByIDFunction
       Principal: apigateway.amazonaws.com
 
+  CreateUserByIDAPIPermission:
+    Type: "AWS::Lambda::Permission"
+    DependsOn:
+      - UsersAPI
+      - CreateUserByIDFunction
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref GetUserByIDFunction
+      Principal: apigateway.amazonaws.com
 
+  PatchUserByIDAPIPermission:
+    Type: "AWS::Lambda::Permission"
+    DependsOn:
+      - UsersAPI
+      - PatchUserByIDFunction
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref PatchUserByIDFunction
+      Principal: apigateway.amazonaws.com
 
   UsersAPI:
     Type: AWS::Serverless::Api
@@ -131,3 +162,41 @@ Resources:
               responses: {}
               security:
                 - MyUserPool: []
+
+            post:
+              parameters:
+                - in: path
+                  name: id
+                  type: string
+                  required: true
+                  description: ID of user
+              consumes:
+                - application/json
+              x-amazon-apigateway-integration: # More information about x-amazon-apigateway-integration https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-swagger-extensions-integration.html
+                httpMethod: POST   # More information why post is required https://stackoverflow.com/questions/41371970/accessdeniedexception-unable-to-determine-service-operation-name-to-be-authoriz
+                type: aws_proxy
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${CreateUserByIDFunction.Arn}/invocations
+              responses: {}
+              security:
+                - MyUserPool: []
+
+            patch:
+              parameters:
+                - in: path
+                  name: id
+                  type: string
+                  required: true
+                  description: ID of user
+              consumes:
+                - application/json
+              x-amazon-apigateway-integration: # More information about x-amazon-apigateway-integration https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-swagger-extensions-integration.html
+                httpMethod: POST   # More information why post is required https://stackoverflow.com/questions/41371970/accessdeniedexception-unable-to-determine-service-operation-name-to-be-authoriz
+                type: aws_proxy
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${PatchUserByIDFunction.Arn}/invocations
+              responses: {}
+              security:
+                - MyUserPool: []
+
+
