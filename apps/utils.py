@@ -1,11 +1,13 @@
 import base64
 import logging
+import decimal
 import database_helper
 
 from constants import *
 from database_helper import *
 
 logger = logging.getLogger()
+
 
 def filter_csv_data(multi_form_data):
     """Process event body input and return processed data.
@@ -102,6 +104,40 @@ def requested_params_validation(requested_params):
     if requested_params["sort"][0] not in ["+", "-", " "]:
         return invalid
     if requested_params["sort"][1:] not in ["id", "name", "login", "salary"]:
+        return invalid
+
+    return valid
+
+
+def user_cr_validation(body_payload):
+    """Validate new user creation and update(path)
+
+        Args:
+        body_payload (Dict): employee login, name and salary shall pass in via body payload
+
+        Returns response message to indicate the status of database operation:
+         1. Valid query string: True
+         2. Invalid query string: False
+    """
+
+    invalid = False
+    valid = True
+
+    # slightly different validation mechanism, value length validation is removed, assume valid salary data is double
+    validate_all_request_param = all(
+        param in body_payload.keys() for param in REQUIRED_EMPLOYEE_DATA)
+
+    if not validate_all_request_param:
+        return invalid
+
+    salary = body_payload["salary"]
+
+    try:
+        decimal.Decimal(salary)
+    except decimal.InvalidOperation:
+        return invalid
+
+    if salary < 0:
         return invalid
 
     return valid
