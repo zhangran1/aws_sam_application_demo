@@ -213,3 +213,142 @@ def valid_required_params_asc_employee_id():
 def valid_required_params_desc_login():
     return VALID_REQUIRED_PARAMS_DESC_LOGIN
 
+
+@pytest.fixture()
+def get_user_by_id_existing_user():
+    return {
+        "pathParameters": {"id": EXISTING_EMPLOYEE},
+    }
+
+
+@pytest.fixture()
+def get_user_by_id_none_exist_user():
+    return {
+        "pathParameters": {"id": NONE_EXIST_EMPLOYEE},
+    }
+
+
+@pytest.fixture()
+def get_user_by_id_invalid_id():
+    return {
+        "pathParameters": {"id": None},
+    }
+
+
+@pytest.fixture()
+def get_user_by_no_id():
+    return {
+        "pathParameters": {},
+    }
+
+
+@pytest.fixture()
+def create_update_user_valid_case():
+    return {
+        "pathParameters": {"id": "api-create-user-login"},
+        "body": {
+            "login": "api-create-user-login",
+            "name": "api-create-user-name",
+            "salary": 1500.0
+        }
+    }
+
+
+@pytest.fixture()
+def create_update_user_invalid_case_no_login():
+    return {
+        "pathParameters": {"id": "api-create-user-login"},
+        "body": {
+            "name": "api-create-user-name",
+            "salary": 1500.0
+        }
+    }
+
+
+@pytest.fixture()
+def create_update_user_invalid_case_no_name():
+    return {
+        "pathParameters": {"id": "api-create-user-login"},
+        "body": {
+            "login": "api-create-user-login",
+            "salary": 1500.0
+        }
+    }
+
+
+@pytest.fixture()
+def create_update_user_invalid_case_no_salary():
+    return {
+        "pathParameters": {"id": "api-create-user-login"},
+        "body": {
+            "login": "api-create-user-login",
+            "name": "api-create-user-name",
+        }
+    }
+
+
+@pytest.fixture()
+def create_update_user_invalid_case_invalid_salary():
+    return {
+        "pathParameters": {"id": "api-create-user-login"},
+        "body": {
+            "login": "api-create-user-login",
+            "name": "api-create-user-name",
+            "salary": "this is in valid salary"
+        }
+    }
+
+
+@pytest.fixture()
+def create_update_user_invalid_salary_negative():
+    return {
+        "pathParameters": {"id": "api-create-user-login"},
+        "body": {
+            "login": "api-create-user-login",
+            "name": "api-create-user-name",
+            "salary": -1.0
+        }
+    }
+
+
+@pytest.fixture()
+def create_user_invalid_case():
+    return {
+        "pathParameters": {"id": "api-create-user-login"},
+        "body": {
+            "login": "api-create-user-login",
+            "name": "api-create-user-name",
+            "salary": -1500.0
+        }
+    }
+
+@pytest.fixture()
+def create_user_valid_case():
+    return {
+        "pathParameters": {"id": "z-api-create-user-login"},
+        "body": {
+            "login": "z-api-create-user-login",
+            "name": "z-api-create-user-name",
+            "salary": 1500.0
+        }
+    }
+
+
+@pytest.fixture()
+def logical_delete_user_valid_case():
+    return {
+        "pathParameters": {"id": "z-api-create-user-login"},
+        "body": {
+            "login": "z-api-create-user-login",
+            "name": "z-api-create-user-name",
+            "salary": 1500.0
+        }
+    }
+
+
+@pytest.fixture()
+def patch_none_exist_user():
+    return {
+        "pathParameters": {"id": NONE_EXIST_EMPLOYEE},
+    }
+

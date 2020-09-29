@@ -258,20 +258,20 @@ def retrieve_users_from_db(requested_params):
         sort_by = "employee." + requested_params["sort"][1:]
 
         retrieve_employee_query = ("select development.employee.id, development.employee.login, " \
-                                  "development.employee.name, development.employee.salary " \
-                                  "from development.employee " \
-                                  "inner join development.employ_create_details " \
-                                  "on employee.id = employ_create_details.employee_id " \
-                                  "where employ_create_details.delete_status = FALSE " \
-                                  "and employee.salary > {min_salary} " \
-                                  "and employee.salary < {max_salary} " \
-                                  "order by {sort_by} {sort_direction}  " \
-                                  "limit {limit} offset {offset}".format(min_salary=min_salary,
-                                                                         max_salary=max_salary,
-                                                                         sort_by=sort_by,
-                                                                         sort_direction=sort_direction,
-                                                                         limit=limit,
-                                                                         offset=offset))
+                                   "development.employee.name, development.employee.salary " \
+                                   "from development.employee " \
+                                   "inner join development.employ_create_details " \
+                                   "on employee.id = employ_create_details.employee_id " \
+                                   "where employ_create_details.delete_status = FALSE " \
+                                   "and employee.salary > {min_salary} " \
+                                   "and employee.salary < {max_salary} " \
+                                   "order by {sort_by} {sort_direction}  " \
+                                   "limit {limit} offset {offset}".format(min_salary=min_salary,
+                                                                          max_salary=max_salary,
+                                                                          sort_by=sort_by,
+                                                                          sort_direction=sort_direction,
+                                                                          limit=limit,
+                                                                          offset=offset))
 
         cnx = make_connection()
         cursor = cnx.cursor()
@@ -282,6 +282,7 @@ def retrieve_users_from_db(requested_params):
 
         employee_response = []
 
+        # todo update return data position
         for single_employee_record in employee_records:
             employee_record = {
                 "id": single_employee_record[0],
@@ -306,3 +307,141 @@ def retrieve_users_from_db(requested_params):
             cnx.close()
         except Exception as e:
             logging.exception(e)
+
+
+def retrieve_user_record_by_id(user_id):
+    """Retrieve employee records based on requested parameters. This function will only be invoke after validate
+       requested_params.
+
+        Args:
+        user_id (String): Id of the user to be retreived
+
+        Json response contains the following fields:
+         1. statusCode: 200 (OK), 400 (User does not exist)
+         2. body: Json data contains return message. If statusCode is 400, error message will be return.
+                  If statusCode is 200, single employee record will be stored in results
+    """
+
+    try:
+
+        retrieve_single_employee_query = ("select development.employee.name, development.employee.login, development.employee.salary "
+                                          "from development.employee "
+                                          "inner join development.employ_create_details "
+                                          "on employee.id = employ_create_details.employee_id "
+                                          "where employ_create_details.delete_status = FALSE "
+                                          "and employee.id = %s")
+
+
+        cnx = make_connection()
+        cursor = cnx.cursor()
+
+        cursor.execute(retrieve_single_employee_query, (user_id,))
+
+        single_employee_record = cursor.fetchall()
+
+        http_status = False
+
+        if len(single_employee_record) == 0:
+            return http_responses.http_standard_return(http_status, failed_msg=RETRIEVE_EMPLOYEE_FAILED)
+
+        http_status = True
+        employee_record = {
+            "id": user_id,
+            "name": single_employee_record[0][0],
+            "login": single_employee_record[0][1],
+            "salary": str(single_employee_record[0][2]),
+        }
+
+        cursor.close()
+        # There might need to have one API to show total number of items belong to this user
+
+        return http_responses.http_standard_return(http_status, success_msg=employee_record)
+
+    except Exception as e:
+        logger.error(e)
+        http_status = False
+        return http_responses.http_standard_return(http_status, failed_msg=RETRIEVE_EMPLOYEE_FAILED)
+
+    finally:
+        try:
+            cnx.close()
+        except Exception as e:
+            logging.exception(e)
+
+
+def db_real_delete_for_testing_purpose(user_id):
+    """Physically employee records based on requested parameters. This function will really delete record for teseting
+    purpose, use with care, as per the requirement, the delete function will not be physically delete the record.
+
+        Args:
+        user_id (String): Id of the user to be deleted
+
+        Json response contains the following fields:
+         1. statusCode: 200 (OK), 400 (User does not exist)
+         2. body: Json data contains return message. If statusCode is 400, error message will be return.
+                  If statusCode is 200, single employee record will be stored in results
+    """
+
+    try:
+
+        physical_delete_for_testing_purpose = ("delete from development.employee where id = %s")
+
+        cnx = make_connection()
+        cursor = cnx.cursor()
+
+        cursor.execute(physical_delete_for_testing_purpose, (user_id,))
+        http_status = True
+
+        cursor.close()
+
+        return http_responses.http_standard_return(http_status)
+
+    except Exception as e:
+        logger.error(e)
+        http_status = False
+        return http_responses.http_standard_return(http_status, failed_msg=DB_FAILED_OPERATION)
+
+    finally:
+        try:
+            cnx.close()
+        except Exception as e:
+            logging.exception(e)
+
+
+def delete_employee(employee_id):
+    """Take in employee id and delete the record. Only employee record delete will be updated to true, the data still
+       keep in database
+    Args:
+        employee_id (String): Id of the employee.
+
+    Returns:
+        Returns response message to indicate the status of database operation:
+         1. DB_FAILED_OPERATION: Failed
+         2. DB_SUCCESS_OPERATION: OK
+    """
+    try:
+        cnx = make_connection()
+        cursor = cnx.cursor()
+
+        # Assumption: Assume the id passed from api call is correct, strict checking shall be implemented depends on
+        #  requirements
+        current_time = str(datetime.now(pytz.timezone("Asia/Singapore")))
+        delete_record = update_delete_record_details = ("update development.employ_create_details set "
+                                                        "deleted_at = %s , delete_status = True "
+                                                        "where employee_id = %s")
+
+        cursor.execute(delete_record, (current_time, employee_id))
+        # todo check whether the above operation performed successfully
+        # can be done by via row count, or other postgres built in messages
+
+        return DB_SUCCESS_OPERATION
+
+    except Exception as e:
+        logger.error(e)
+        logger.error("Failed to update Record")
+        return DB_FAILED_OPERATION
+    finally:
+        try:
+            cnx.close()
+        except:
+            pass

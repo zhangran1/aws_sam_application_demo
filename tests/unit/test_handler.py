@@ -3,6 +3,9 @@ import sys
 sys.path.append('././apps/')
 
 from apps import upload
+from apps import get_user_by_id
+from apps import create_user
+from apps import patch_user
 from tests.unit.test_cases import *
 from tests.unit.test_constants import *
 from tests.unit.test_class_setup import *
@@ -23,7 +26,7 @@ def test_http_response_fail():
     validation = False
     ret = http_standard_return(validation)
     data = json.loads(ret["body"])
-    assert data["results"] == FAIL_VALIDATION_FAIL
+    assert data["results"] == FILE_VALIDATION_FAIL
     assert ret["statusCode"] == HTTP_FAIL_STATUS
 
 
@@ -75,7 +78,7 @@ def test_user_input_invalid_test_case_1(user_input_invalid_test_case_1):
     release_db_lock()
     ret = upload.lambda_handler(user_input_invalid_test_case_1, "")
     data = json.loads(ret["body"])
-    assert data["results"] == FAIL_VALIDATION_FAIL
+    assert data["results"] == FILE_VALIDATION_FAIL
     assert ret["statusCode"] == HTTP_FAIL_STATUS
 
 
@@ -83,7 +86,7 @@ def test_user_input_invalid_test_case_2(user_input_invalid_test_case_2):
     release_db_lock()
     ret = upload.lambda_handler(user_input_invalid_test_case_2, "")
     data = json.loads(ret["body"])
-    assert data["results"] == FAIL_VALIDATION_FAIL
+    assert data["results"] == FILE_VALIDATION_FAIL
     assert ret["statusCode"] == HTTP_FAIL_STATUS
 
 
@@ -91,7 +94,7 @@ def test_user_input_invalid_test_case_3(user_input_invalid_test_case_3):
     release_db_lock()
     ret = upload.lambda_handler(user_input_invalid_test_case_3, "")
     data = json.loads(ret["body"])
-    assert data["results"] == FAIL_VALIDATION_FAIL
+    assert data["results"] == FILE_VALIDATION_FAIL
     assert ret["statusCode"] == HTTP_FAIL_STATUS
 
 
@@ -99,7 +102,7 @@ def test_user_input_invalid_test_case_4(user_input_invalid_test_case_4):
     release_db_lock()
     ret = upload.lambda_handler(user_input_invalid_test_case_4, "")
     data = json.loads(ret["body"])
-    assert data["results"] == FAIL_VALIDATION_FAIL
+    assert data["results"] == FILE_VALIDATION_FAIL
     assert ret["statusCode"] == HTTP_FAIL_STATUS
 
 
@@ -107,7 +110,7 @@ def test_user_input_invalid_duplicate_id_login(user_input_invalid_duplicate_id_l
     release_db_lock()
     ret = upload.lambda_handler(user_input_invalid_duplicate_id_login, "")
     data = json.loads(ret["body"])
-    assert data["results"] == FAIL_VALIDATION_FAIL
+    assert data["results"] == FILE_VALIDATION_FAIL
     assert ret["statusCode"] == HTTP_FAIL_STATUS
 
 
@@ -115,7 +118,7 @@ def test_user_input_invalid_test_empty_file(user_input_invalid_test_empty_file):
     release_db_lock()
     ret = upload.lambda_handler(user_input_invalid_test_empty_file, "")
     data = json.loads(ret["body"])
-    assert data["results"] == FAIL_VALIDATION_FAIL
+    assert data["results"] == FILE_VALIDATION_FAIL
     assert ret["statusCode"] == HTTP_FAIL_STATUS
 
 
@@ -242,3 +245,141 @@ def test_select_employee_desc_login(valid_required_params_desc_login):
     assert ret["statusCode"] == 200
     assert "results" in ret["body"]
     assert data["results"] == VALID_REQUIRED_PARAMS_DESC_LOGIN_RECORD
+
+
+def test_retrieve_single_user_from_db(get_user_by_id_existing_user):
+    ret = retrieve_user_record_by_id(get_user_by_id_existing_user["pathParameters"]["id"])
+    data = json.loads(ret["body"])
+    assert ret["statusCode"] == 200
+    assert "results" in ret["body"]
+    assert data["results"] == {'id': 'test00001', 'name': 'John Smith', 'login': 'john1', 'salary': '101.5'}
+
+
+def test_retrieve_single_user_from_db_none_exist_user(get_user_by_id_none_exist_user):
+    ret = retrieve_user_record_by_id(get_user_by_id_none_exist_user["pathParameters"]["id"])
+    data = json.loads(ret["body"])
+    assert ret["statusCode"] == 400
+    assert "results" in ret["body"]
+    assert data["results"] == RETRIEVE_EMPLOYEE_FAILED
+
+
+def test_get_user_by_id(get_user_by_id_existing_user):
+    ret = get_user_by_id.lambda_handler(get_user_by_id_existing_user, "")
+    data = json.loads(ret["body"])
+    assert ret["statusCode"] == 200
+    assert "results" in ret["body"]
+    assert data["results"] == {'id': 'test00001', 'name': 'John Smith', 'login': 'john1', 'salary': '101.5'}
+
+
+def test_get_user_by_id_invalid_field(get_user_by_id_invalid_id):
+    ret = get_user_by_id.lambda_handler(get_user_by_id_invalid_id, "")
+    data = json.loads(ret["body"])
+    assert ret["statusCode"] == 400
+    assert "results" in ret["body"]
+    assert data["results"] == RETRIEVE_EMPLOYEE_FAILED
+
+
+def test_get_user_by_no_id(get_user_by_no_id):
+    ret = get_user_by_id.lambda_handler(get_user_by_no_id, "")
+    data = json.loads(ret["body"])
+    assert ret["statusCode"] == 400
+    assert "results" in ret["body"]
+    assert data["results"] == RETRIEVE_EMPLOYEE_FAILED
+
+
+def test_user_cr_validation_valid_case(create_update_user_valid_case):
+    ret = user_cr_validation(create_update_user_valid_case["body"])
+    assert ret is True
+
+
+def test_create_update_user_invalid_case_no_login(create_update_user_invalid_case_no_login):
+    ret = user_cr_validation(create_update_user_invalid_case_no_login["body"])
+    assert ret is False
+
+
+def test_create_update_user_invalid_case_no_name(create_update_user_invalid_case_no_name):
+    ret = user_cr_validation(create_update_user_invalid_case_no_name["body"])
+    assert ret is False
+
+
+def test_create_update_user_invalid_case_no_salary(create_update_user_invalid_case_no_salary):
+    ret = user_cr_validation(create_update_user_invalid_case_no_salary["body"])
+    assert ret is False
+
+
+def test_create_update_user_invalid_case_invalid_salary(create_update_user_invalid_case_invalid_salary):
+    ret = user_cr_validation(create_update_user_invalid_case_invalid_salary["body"])
+    assert ret is False
+
+
+def test_create_update_user_invalid_salary_negative(create_update_user_invalid_salary_negative):
+    ret = user_cr_validation(create_update_user_invalid_salary_negative["body"])
+    assert ret is False
+
+
+def test_create_user_invalid(create_user_invalid_case):
+    ret = create_user.lambda_handler(create_user_invalid_case, "")
+    data = json.loads(ret["body"])
+    data = json.loads(ret["body"])
+    assert ret["statusCode"] == 400
+    assert "results" in ret["body"]
+    assert data["results"] == INVALID_BODY_INPUT
+
+
+def test_create_user_valid_case(create_user_valid_case):
+    # this test case will create a new record and then deleted from database to prevent interrupt other test cases
+
+    create_ret = create_user.lambda_handler(create_user_valid_case, "")
+    data = json.loads(create_ret["body"])
+    assert create_ret["statusCode"] == 200
+    assert "results" in create_ret["body"]
+    assert data["results"] == VALID_CR_DB_OPERATION
+    # select the record just created
+    select_ret = get_user_by_id.lambda_handler(create_user_valid_case, "")
+    data = json.loads(select_ret["body"])
+    assert select_ret["statusCode"] == 200
+    assert "results" in select_ret["body"]
+    assert data["results"]["id"] == "z-api-create-user-login"
+    assert data["results"]["login"] == "z-api-create-user-login"
+    assert data["results"]["name"] == "z-api-create-user-name"
+    assert data["results"]["salary"] == '1500.0'
+
+    # physically delete
+    delete_ret = db_real_delete_for_testing_purpose(data["results"]["id"])
+    data = json.loads(create_ret["body"])
+    assert create_ret["statusCode"] == 200
+
+    # validate deletion
+    select_ret = get_user_by_id.lambda_handler(create_user_valid_case, "")
+    data = json.loads(select_ret["body"])
+    assert select_ret["statusCode"] == 400
+
+
+def test_logical_delete_user(logical_delete_user_valid_case):
+    create_ret = create_user.lambda_handler(logical_delete_user_valid_case, "")
+    data = json.loads(create_ret["body"])
+    assert create_ret["statusCode"] == 200
+    assert "results" in create_ret["body"]
+    assert data["results"] == VALID_CR_DB_OPERATION
+
+    select_ret = select_ret = get_user_by_id.lambda_handler(logical_delete_user_valid_case, "")
+    assert select_ret["statusCode"] == 200
+
+    logger.error(logical_delete_user_valid_case["pathParameters"]["id"])
+
+    delete_ret = delete_employee(logical_delete_user_valid_case["pathParameters"]["id"])
+    assert delete_ret == DB_SUCCESS_OPERATION
+
+    select_ret = retrieve_user_record_by_id(logical_delete_user_valid_case["pathParameters"]["id"])
+    assert select_ret["statusCode"] == 400
+
+    delete_ret = db_real_delete_for_testing_purpose(logical_delete_user_valid_case["pathParameters"]["id"])
+    data = json.loads(create_ret["body"])
+    assert delete_ret["statusCode"] == 200
+
+
+def test_patch_none_exit_user(patch_none_exist_user):
+    ret = patch_user.lambda_handler(patch_none_exist_user, "")
+    data = json.loads(ret["body"])
+    assert ret["statusCode"] == 400
+    assert data["results"] == USER_DOES_NOT_EXIST_CANNOT_PATCH
