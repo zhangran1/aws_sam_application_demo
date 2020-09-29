@@ -1,0 +1,5 @@
+endpoint = "localhost"
+port = "5432"
+db_user = "match-docker-compose-db-user"
+password = "match-docker-compose-db-password"
+database = "match-docker-compose-database name"

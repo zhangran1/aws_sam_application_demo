@@ -123,9 +123,6 @@ def test_user_input_invalid_test_empty_file(user_input_invalid_test_empty_file):
 
 
 def test_check_existing_employee():
-    current_employee_id = EXISTING_EMPLOYEE
-    record_count = check_existing_employee(current_employee_id)
-    assert record_count == 1
     new_employee_id = NONE_EXIST_EMPLOYEE
     record_count = check_existing_employee(new_employee_id)
     assert record_count == 0

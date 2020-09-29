@@ -45,15 +45,15 @@ def create_employee(employee_record):
         cnx = make_connection()
         cursor = cnx.cursor()
 
-        create_new_record = ("insert into development.employee(id, login, name, salary) "
+        create_new_record = ("insert into public.employee(id, login, name, salary) "
                              "values (%s, %s, %s, %s)")
 
-        update_existing_record = ("update development.employee set login = %s, name = %s, salary = %s where id = %s")
+        update_existing_record = ("update public.employee set login = %s, name = %s, salary = %s where id = %s")
 
-        new_record_details = ("insert into development.employ_create_details(created_at, employee_id) "
+        new_record_details = ("insert into public.employ_create_details(created_at, employee_id) "
                               "values (%s, %s)")
 
-        update_record_details = ("update development.employ_create_details set updated_at = %s where employee_id = %s")
+        update_record_details = ("update public.employ_create_details set updated_at = %s where employee_id = %s")
 
         # todo concurrent update is not handled at the moment, to be implemented at later time
         record_count = check_existing_employee(employee_record.employee_id)
@@ -104,8 +104,8 @@ def check_existing_employee(employee_id):
         cnx = make_connection()
         cursor = cnx.cursor()
 
-        sql_query = ("select count(development.employee.id) "
-                     "from development.employee "
+        sql_query = ("select count(public.employee.id) "
+                     "from public.employee "
                      "where employee.id = %s")
 
         cursor.execute(sql_query, (employee_id,))
@@ -139,7 +139,7 @@ def check_db_lock(db_lock_id=database_lock_id):
         cnx = make_connection()
         cursor = cnx.cursor()
 
-        db_lock_query = ("select development.db_lock.lock_status from development.db_lock where db_lock.lock_id = %s")
+        db_lock_query = ("select public.db_lock.lock_status from public.db_lock where db_lock.lock_id = %s")
 
         cursor.execute(db_lock_query, (db_lock_id,))
         # todo check whether the above operation performed successfully
@@ -174,7 +174,7 @@ def get_db_lock(db_lock_id=database_lock_id):
         cnx = make_connection()
         cursor = cnx.cursor()
 
-        get_db_lock = ("update development.db_lock set lock_status = True where lock_id = %s")
+        get_db_lock = ("update public.db_lock set lock_status = True where lock_id = %s")
 
         cursor.execute(get_db_lock, (db_lock_id,))
         # todo check whether the above operation performed successfully
@@ -205,7 +205,7 @@ def release_db_lock(db_lock_id=database_lock_id):
         cnx = make_connection()
         cursor = cnx.cursor()
 
-        get_db_lock = ("update development.db_lock set lock_status = False where lock_id = %s")
+        get_db_lock = ("update public.db_lock set lock_status = False where lock_id = %s")
 
         cursor.execute(get_db_lock, (db_lock_id,))
         # todo check whether the above operation performed successfully
@@ -257,10 +257,10 @@ def retrieve_users_from_db(requested_params):
 
         sort_by = "employee." + requested_params["sort"][1:]
 
-        retrieve_employee_query = ("select development.employee.id, development.employee.login, " \
-                                   "development.employee.name, development.employee.salary " \
-                                   "from development.employee " \
-                                   "inner join development.employ_create_details " \
+        retrieve_employee_query = ("select public.employee.id, public.employee.login, " \
+                                   "public.employee.name, public.employee.salary " \
+                                   "from public.employee " \
+                                   "inner join public.employ_create_details " \
                                    "on employee.id = employ_create_details.employee_id " \
                                    "where employ_create_details.delete_status = FALSE " \
                                    "and employee.salary > {min_salary} " \
@@ -324,9 +324,9 @@ def retrieve_user_record_by_id(user_id):
 
     try:
 
-        retrieve_single_employee_query = ("select development.employee.name, development.employee.login, development.employee.salary "
-                                          "from development.employee "
-                                          "inner join development.employ_create_details "
+        retrieve_single_employee_query = ("select public.employee.name, public.employee.login, public.employee.salary "
+                                          "from public.employee "
+                                          "inner join public.employ_create_details "
                                           "on employee.id = employ_create_details.employee_id "
                                           "where employ_create_details.delete_status = FALSE "
                                           "and employee.id = %s")
@@ -384,7 +384,7 @@ def db_real_delete_for_testing_purpose(user_id):
 
     try:
 
-        physical_delete_for_testing_purpose = ("delete from development.employee where id = %s")
+        physical_delete_for_testing_purpose = ("delete from public.employee where id = %s")
 
         cnx = make_connection()
         cursor = cnx.cursor()
@@ -426,7 +426,7 @@ def delete_employee(employee_id):
         # Assumption: Assume the id passed from api call is correct, strict checking shall be implemented depends on
         #  requirements
         current_time = str(datetime.now(pytz.timezone("Asia/Singapore")))
-        delete_record = update_delete_record_details = ("update development.employ_create_details set "
+        delete_record = update_delete_record_details = ("update public.employ_create_details set "
                                                         "deleted_at = %s , delete_status = True "
                                                         "where employee_id = %s")
 
