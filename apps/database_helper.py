@@ -364,3 +364,42 @@ def retrieve_user_record_by_id(user_id):
             cnx.close()
         except Exception as e:
             logging.exception(e)
+
+
+def db_real_delete_for_testing_purpose(user_id):
+    """Physically employee records based on requested parameters. This function will really delete record for teseting
+    purpose, use with care, as per the requirement, the delete function will not be physically delete the record.
+
+        Args:
+        user_id (String): Id of the user to be deleted
+
+        Json response contains the following fields:
+         1. statusCode: 200 (OK), 400 (User does not exist)
+         2. body: Json data contains return message. If statusCode is 400, error message will be return.
+                  If statusCode is 200, single employee record will be stored in results
+    """
+
+    try:
+
+        physical_delete_for_testing_purpose = ("delete from development.employee where id = %s")
+
+        cnx = make_connection()
+        cursor = cnx.cursor()
+
+        cursor.execute(physical_delete_for_testing_purpose, (user_id,))
+        http_status = True
+
+        cursor.close()
+
+        return http_responses.http_standard_return(http_status)
+
+    except Exception as e:
+        logger.error(e)
+        http_status = False
+        return http_responses.http_standard_return(http_status, failed_msg=DB_FAILED_OPERATION)
+
+    finally:
+        try:
+            cnx.close()
+        except Exception as e:
+            logging.exception(e)
