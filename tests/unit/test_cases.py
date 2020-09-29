@@ -228,3 +228,21 @@ def get_user_by_id_none_exist_user():
     return {
         "pathParameters": {"id": NONE_EXIST_EMPLOYEE},
     }
+
+
+@pytest.fixture()
+def get_user_by_id_invalid_id():
+
+    return {
+        "pathParameters": {"id": None},
+    }
+
+
+@pytest.fixture()
+def get_user_by_no_id():
+    return {
+        "pathParameters": {},
+    }
+
+
+
