@@ -25,7 +25,7 @@ def test_http_response_fail():
     validation = False
     ret = http_standard_return(validation)
     data = json.loads(ret["body"])
-    assert data["results"] == FAIL_VALIDATION_FAIL
+    assert data["results"] == FILE_VALIDATION_FAIL
     assert ret["statusCode"] == HTTP_FAIL_STATUS
 
 
@@ -77,7 +77,7 @@ def test_user_input_invalid_test_case_1(user_input_invalid_test_case_1):
     release_db_lock()
     ret = upload.lambda_handler(user_input_invalid_test_case_1, "")
     data = json.loads(ret["body"])
-    assert data["results"] == FAIL_VALIDATION_FAIL
+    assert data["results"] == FILE_VALIDATION_FAIL
     assert ret["statusCode"] == HTTP_FAIL_STATUS
 
 
@@ -85,7 +85,7 @@ def test_user_input_invalid_test_case_2(user_input_invalid_test_case_2):
     release_db_lock()
     ret = upload.lambda_handler(user_input_invalid_test_case_2, "")
     data = json.loads(ret["body"])
-    assert data["results"] == FAIL_VALIDATION_FAIL
+    assert data["results"] == FILE_VALIDATION_FAIL
     assert ret["statusCode"] == HTTP_FAIL_STATUS
 
 
@@ -93,7 +93,7 @@ def test_user_input_invalid_test_case_3(user_input_invalid_test_case_3):
     release_db_lock()
     ret = upload.lambda_handler(user_input_invalid_test_case_3, "")
     data = json.loads(ret["body"])
-    assert data["results"] == FAIL_VALIDATION_FAIL
+    assert data["results"] == FILE_VALIDATION_FAIL
     assert ret["statusCode"] == HTTP_FAIL_STATUS
 
 
@@ -101,7 +101,7 @@ def test_user_input_invalid_test_case_4(user_input_invalid_test_case_4):
     release_db_lock()
     ret = upload.lambda_handler(user_input_invalid_test_case_4, "")
     data = json.loads(ret["body"])
-    assert data["results"] == FAIL_VALIDATION_FAIL
+    assert data["results"] == FILE_VALIDATION_FAIL
     assert ret["statusCode"] == HTTP_FAIL_STATUS
 
 
@@ -109,7 +109,7 @@ def test_user_input_invalid_duplicate_id_login(user_input_invalid_duplicate_id_l
     release_db_lock()
     ret = upload.lambda_handler(user_input_invalid_duplicate_id_login, "")
     data = json.loads(ret["body"])
-    assert data["results"] == FAIL_VALIDATION_FAIL
+    assert data["results"] == FILE_VALIDATION_FAIL
     assert ret["statusCode"] == HTTP_FAIL_STATUS
 
 
@@ -117,7 +117,7 @@ def test_user_input_invalid_test_empty_file(user_input_invalid_test_empty_file):
     release_db_lock()
     ret = upload.lambda_handler(user_input_invalid_test_empty_file, "")
     data = json.loads(ret["body"])
-    assert data["results"] == FAIL_VALIDATION_FAIL
+    assert data["results"] == FILE_VALIDATION_FAIL
     assert ret["statusCode"] == HTTP_FAIL_STATUS
 
 
@@ -315,3 +315,20 @@ def test_create_update_user_invalid_salary_negative(create_update_user_invalid_s
     ret = user_cr_validation(create_update_user_invalid_salary_negative["body"])
     assert ret is False
 
+
+def test_create_user_invalid(create_user_invalid_case):
+    ret = create_user.lambda_handler(create_user_invalid_case, "")
+    data = json.loads(ret["body"])
+    data = json.loads(ret["body"])
+    assert ret["statusCode"] == 400
+    assert "results" in ret["body"]
+    assert data["results"] == INVALID_BODY_INPUT
+
+
+def test_create_user_valid_case(create_user_valid_case):
+    ret = create_user.lambda_handler(create_user_valid_case, "")
+    data = json.loads(ret["body"])
+    data = json.loads(ret["body"])
+    assert ret["statusCode"] == 200
+    assert "results" in ret["body"]
+    assert data["results"] == VALID_CR_DB_OPERATION
