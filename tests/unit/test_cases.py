@@ -311,13 +311,25 @@ def create_update_user_invalid_salary_negative():
     }
 
 
-# @pytest.fixture()
-# def create_user_valid_case():
-#     return {
-#         "pathParameters": {"id": "api-create-user-login"},
-#         "body": {
-#             "login": "api-create-user-login",
-#             "name": "api-create-user-name",
-#             "salary": 1500.0
-#         }
-#     }
+@pytest.fixture()
+def create_user_invalid_case():
+    return {
+        "pathParameters": {"id": "api-create-user-login"},
+        "body": {
+            "login": "api-create-user-login",
+            "name": "api-create-user-name",
+            "salary": -1500.0
+        }
+    }
+
+@pytest.fixture()
+def create_user_valid_case():
+    return {
+        "pathParameters": {"id": "z-api-create-user-login"},
+        "body": {
+            "login": "z-api-create-user-login",
+            "name": "z-api-create-user-name",
+            "salary": 1500.0
+        }
+    }
+
