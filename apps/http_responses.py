@@ -5,7 +5,7 @@ from constants import *
 logger = logging.getLogger()
 
 
-def http_standard_return(valid_input: bool, success_msg=SUCCESS_MSG_RESPONSE, failed_msg=FAIL_VALIDATION_FAIL):
+def http_standard_return(valid_input: bool, success_msg=SUCCESS_MSG_RESPONSE, failed_msg=FILE_VALIDATION_FAIL):
     """
     Construct standard HTTP response based on valid_input.
 
