@@ -215,8 +215,16 @@ def valid_required_params_desc_login():
 
 
 @pytest.fixture()
-def valid_get_user_by_id():
+def get_user_by_id_existing_user():
 
     return {
         "pathParameters": {"id": EXISTING_EMPLOYEE},
+    }
+
+
+@pytest.fixture()
+def get_user_by_id_none_exist_user():
+
+    return {
+        "pathParameters": {"id": NONE_EXIST_EMPLOYEE},
     }
