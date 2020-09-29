@@ -286,5 +286,32 @@ def test_get_user_by_no_id(get_user_by_no_id):
     assert data["results"] == RETRIEVE_EMPLOYEE_FAILED
 
 
+def test_user_cr_validation_valid_case(create_update_user_valid_case):
+    ret = user_cr_validation(create_update_user_valid_case["body"])
+    assert ret is True
 
+
+def test_create_update_user_invalid_case_no_login(create_update_user_invalid_case_no_login):
+    ret = user_cr_validation(create_update_user_invalid_case_no_login["body"])
+    assert ret is False
+
+
+def test_create_update_user_invalid_case_no_name(create_update_user_invalid_case_no_name):
+    ret = user_cr_validation(create_update_user_invalid_case_no_name["body"])
+    assert ret is False
+
+
+def test_create_update_user_invalid_case_no_salary(create_update_user_invalid_case_no_salary):
+    ret = user_cr_validation(create_update_user_invalid_case_no_salary["body"])
+    assert ret is False
+
+
+def test_create_update_user_invalid_case_invalid_salary(create_update_user_invalid_case_invalid_salary):
+    ret = user_cr_validation(create_update_user_invalid_case_invalid_salary["body"])
+    assert ret is False
+
+
+def test_create_update_user_invalid_salary_negative(create_update_user_invalid_salary_negative):
+    ret = user_cr_validation(create_update_user_invalid_salary_negative["body"])
+    assert ret is False
 
