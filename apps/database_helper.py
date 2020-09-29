@@ -258,20 +258,20 @@ def retrieve_users_from_db(requested_params):
         sort_by = "employee." + requested_params["sort"][1:]
 
         retrieve_employee_query = ("select development.employee.id, development.employee.login, " \
-                                  "development.employee.name, development.employee.salary " \
-                                  "from development.employee " \
-                                  "inner join development.employ_create_details " \
-                                  "on employee.id = employ_create_details.employee_id " \
-                                  "where employ_create_details.delete_status = FALSE " \
-                                  "and employee.salary > {min_salary} " \
-                                  "and employee.salary < {max_salary} " \
-                                  "order by {sort_by} {sort_direction}  " \
-                                  "limit {limit} offset {offset}".format(min_salary=min_salary,
-                                                                         max_salary=max_salary,
-                                                                         sort_by=sort_by,
-                                                                         sort_direction=sort_direction,
-                                                                         limit=limit,
-                                                                         offset=offset))
+                                   "development.employee.name, development.employee.salary " \
+                                   "from development.employee " \
+                                   "inner join development.employ_create_details " \
+                                   "on employee.id = employ_create_details.employee_id " \
+                                   "where employ_create_details.delete_status = FALSE " \
+                                   "and employee.salary > {min_salary} " \
+                                   "and employee.salary < {max_salary} " \
+                                   "order by {sort_by} {sort_direction}  " \
+                                   "limit {limit} offset {offset}".format(min_salary=min_salary,
+                                                                          max_salary=max_salary,
+                                                                          sort_by=sort_by,
+                                                                          sort_direction=sort_direction,
+                                                                          limit=limit,
+                                                                          offset=offset))
 
         cnx = make_connection()
         cursor = cnx.cursor()
@@ -336,21 +336,22 @@ def retrieve_user_record_by_id(user_id):
 
         single_employee_record = cursor.fetchall()
 
-        employee_record = {}
+        http_status = False
 
-        if single_employee_record:
+        if len(single_employee_record) == 0:
+            return http_responses.http_standard_return(http_status, failed_msg=RETRIEVE_EMPLOYEE_FAILED)
 
-            employee_record = {
-                "id": user_id,
-                "name": single_employee_record[0][0],
-                "login": single_employee_record[0][1],
-                "salary": str(single_employee_record[0][2]),
-            }
-
+        http_status = True
+        employee_record = {
+            "id": user_id,
+            "name": single_employee_record[0][0],
+            "login": single_employee_record[0][1],
+            "salary": str(single_employee_record[0][2]),
+        }
 
         cursor.close()
         # There might need to have one API to show total number of items belong to this user
-        http_status = True
+
         return http_responses.http_standard_return(http_status, success_msg=employee_record)
 
     except Exception as e:
