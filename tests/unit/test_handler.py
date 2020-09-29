@@ -326,9 +326,29 @@ def test_create_user_invalid(create_user_invalid_case):
 
 
 def test_create_user_valid_case(create_user_valid_case):
-    ret = create_user.lambda_handler(create_user_valid_case, "")
-    data = json.loads(ret["body"])
-    data = json.loads(ret["body"])
-    assert ret["statusCode"] == 200
-    assert "results" in ret["body"]
+    # this test case will create a new record and then deleted from database to prevent interrupt other test cases
+
+    create_ret = create_user.lambda_handler(create_user_valid_case, "")
+    data = json.loads(create_ret["body"])
+    assert create_ret["statusCode"] == 200
+    assert "results" in create_ret["body"]
     assert data["results"] == VALID_CR_DB_OPERATION
+    # select the record just created
+    select_ret = get_user_by_id.lambda_handler(create_user_valid_case, "")
+    data = json.loads(select_ret["body"])
+    assert select_ret["statusCode"] == 200
+    assert "results" in select_ret["body"]
+    assert data["results"]["id"] == "z-api-create-user-login"
+    assert data["results"]["login"] == "z-api-create-user-login"
+    assert data["results"]["name"] == "z-api-create-user-name"
+    assert data["results"]["salary"] == '1500.0'
+
+    # physically delete
+    delete_ret = db_real_delete_for_testing_purpose(data["results"]["id"])
+    data = json.loads(create_ret["body"])
+    assert create_ret["statusCode"] == 200
+
+    # validate deletion
+    select_ret = get_user_by_id.lambda_handler(create_user_valid_case, "")
+    data = json.loads(select_ret["body"])
+    assert select_ret["statusCode"] == 400
