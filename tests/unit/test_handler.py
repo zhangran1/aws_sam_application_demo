@@ -4,6 +4,7 @@ sys.path.append('././apps/')
 
 from apps import upload
 from apps import get_user_by_id
+from apps import create_user
 from tests.unit.test_cases import *
 from tests.unit.test_constants import *
 from tests.unit.test_class_setup import *
@@ -267,6 +268,22 @@ def test_get_user_by_id(get_user_by_id_existing_user):
     assert ret["statusCode"] == 200
     assert "results" in ret["body"]
     assert data["results"] == {'id': 'test00001', 'name': 'John Smith', 'login': 'john1', 'salary': '101.5'}
+
+
+def test_get_user_by_id_invalid_field(get_user_by_id_invalid_id):
+    ret = get_user_by_id.lambda_handler(get_user_by_id_invalid_id, "")
+    data = json.loads(ret["body"])
+    assert ret["statusCode"] == 400
+    assert "results" in ret["body"]
+    assert data["results"] == RETRIEVE_EMPLOYEE_FAILED
+
+
+def test_get_user_by_no_id(get_user_by_no_id):
+    ret = get_user_by_id.lambda_handler(get_user_by_no_id, "")
+    data = json.loads(ret["body"])
+    assert ret["statusCode"] == 400
+    assert "results" in ret["body"]
+    assert data["results"] == RETRIEVE_EMPLOYEE_FAILED
 
 
 
