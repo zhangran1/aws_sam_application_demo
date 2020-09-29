@@ -31,8 +31,16 @@ def lambda_handler(event, context):
     # db locking check is not enabled, assume the each time is only one operation taken place
     employee_id = event["pathParameters"]["id"]
 
+    if not event["body"]:
+        return http_responses.http_standard_return(False, failed_msg=INVALID_BODY_INPUT)
+
     if isinstance(event["body"], str):
-        event["body"] = json.loads(event["body"])
+        try:
+            event["body"] = json.loads(event["body"])
+        except Exception as e:
+            logger.error(e)
+            return http_responses.http_standard_return(False, failed_msg=INVALID_BODY_INPUT)
+
 
     if not user_cr_validation(event["body"]):
         return http_responses.http_standard_return(False, failed_msg=INVALID_BODY_INPUT)
