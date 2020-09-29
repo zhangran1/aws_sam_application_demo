@@ -333,3 +333,22 @@ def create_user_valid_case():
         }
     }
 
+
+@pytest.fixture()
+def logical_delete_user_valid_case():
+    return {
+        "pathParameters": {"id": "z-api-create-user-login"},
+        "body": {
+            "login": "z-api-create-user-login",
+            "name": "z-api-create-user-name",
+            "salary": 1500.0
+        }
+    }
+
+
+@pytest.fixture()
+def patch_none_exist_user():
+    return {
+        "pathParameters": {"id": NONE_EXIST_EMPLOYEE},
+    }
+
