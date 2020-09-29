@@ -4,6 +4,7 @@ INVALID_BODY_INPUT = "Invalid json payload"
 INVALID_OPERATION_INPUT = "Employee exist cannot create"
 VALID_CR_DB_OPERATION = "Successfully Update DB"
 RETRIEVE_EMPLOYEE_FAILED = "Retrieve employee information failed"
+USER_DOES_NOT_EXIST_CANNOT_PATCH = "Patch failed"
 HTTP_SUCCESS_STATUS = 200
 HTTP_FAIL_STATUS = 400
 MINIMUM_ROW_COUNT = 5
