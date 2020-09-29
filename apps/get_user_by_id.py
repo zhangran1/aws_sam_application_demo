@@ -24,7 +24,7 @@ def lambda_handler(event, context):
         1. statusCode: 200 (Valid Response); 400 (Invalid Request);
         2. body: Single employee records if statusCode is 200, fail response message will return if statusCode is 400.
     """
-    print(event["pathParameters"])
+
     if not event["pathParameters"]:
         return http_responses.http_standard_return(False, failed_msg=RETRIEVE_EMPLOYEE_FAILED)
 
