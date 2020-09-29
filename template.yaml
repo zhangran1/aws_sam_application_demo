@@ -25,10 +25,17 @@ Resources:
       Handler: get_users.lambda_handler
       Runtime: python3.7
 
+  GetUserByIDFunction:
+    Type: AWS::Serverless::Function # More info about Function Resource: https://github.com/awslabs/serverless-application-model/blob/master/versions/2016-10-31.md#awsserverlessfunction
+    Properties:
+      CodeUri: apps/
+      Handler: get_user_by_id.lambda_handler
+      Runtime: python3.7
+
   UploadAPIPermission:
     Type: "AWS::Lambda::Permission"
     DependsOn:
-      - UploadAPI
+      - UsersAPI
       - UploadFunction
     Properties:
       Action: lambda:InvokeFunction
@@ -39,14 +46,26 @@ Resources:
   GetUsersAPIPermission:
     Type: "AWS::Lambda::Permission"
     DependsOn:
-      - UploadAPI
+      - UsersAPI
       - GetUsersFunction
     Properties:
       Action: lambda:InvokeFunction
       FunctionName: !Ref GetUsersFunction
       Principal: apigateway.amazonaws.com
 
-  UploadAPI:
+  GetUsersByIDAPIPermission:
+    Type: "AWS::Lambda::Permission"
+    DependsOn:
+      - UsersAPI
+      - GetUserByIDFunction
+    Properties:
+      Action: lambda:InvokeFunction
+      FunctionName: !Ref GetUserByIDFunction
+      Principal: apigateway.amazonaws.com
+
+
+
+  UsersAPI:
     Type: AWS::Serverless::Api
     Properties:
       StageName: Dev
@@ -90,6 +109,25 @@ Resources:
                 type: aws_proxy
                 uri:
                   Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetUsersFunction.Arn}/invocations
+              responses: {}
+              security:
+                - MyUserPool: []
+
+          "/users/{id}/":
+            get:
+              parameters:
+                - in: path
+                  name: id
+                  type: string
+                  required: true
+                  description: ID of user
+              consumes:
+                - application/json
+              x-amazon-apigateway-integration: # More information about x-amazon-apigateway-integration https://docs.aws.amazon.com/apigateway/latest/developerguide/api-gateway-swagger-extensions-integration.html
+                httpMethod: POST   # More information why post is required https://stackoverflow.com/questions/41371970/accessdeniedexception-unable-to-determine-service-operation-name-to-be-authoriz
+                type: aws_proxy
+                uri:
+                  Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${GetUserByIDFunction.Arn}/invocations
               responses: {}
               security:
                 - MyUserPool: []
