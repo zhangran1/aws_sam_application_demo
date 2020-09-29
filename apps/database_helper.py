@@ -282,6 +282,7 @@ def retrieve_users_from_db(requested_params):
 
         employee_response = []
 
+        # todo update return data position
         for single_employee_record in employee_records:
             employee_record = {
                 "id": single_employee_record[0],
@@ -295,6 +296,62 @@ def retrieve_users_from_db(requested_params):
         # There might need to have one API to show total number of items belong to this user
         http_status = True
         return http_responses.http_standard_return(http_status, success_msg=employee_response)
+
+    except Exception as e:
+        logger.error(e)
+        http_status = False
+        return http_responses.http_standard_return(http_status, failed_msg=RETRIEVE_EMPLOYEE_FAILED)
+
+    finally:
+        try:
+            cnx.close()
+        except Exception as e:
+            logging.exception(e)
+
+
+def retrieve_user_record_by_id(user_id):
+    """Retrieve employee records based on requested parameters. This function will only be invoke after validate
+       requested_params.
+
+        Args:
+        user_id (String): Id of the user to be retreived
+
+        Json response contains the following fields:
+         1. statusCode: 200 (OK), 400 (User does not exist)
+         2. body: Json data contains return message. If statusCode is 400, error message will be return.
+                  If statusCode is 200, single employee record will be stored in results
+    """
+
+    try:
+
+        retrieve_single_employee_query = ("select development.employee.name, development.employee.login, "
+                                          "development.employee.salary "
+                                          "from development.employee "
+                                          "where employee.id = %s")
+
+        cnx = make_connection()
+        cursor = cnx.cursor()
+
+        cursor.execute(retrieve_single_employee_query, (user_id,))
+
+        single_employee_record = cursor.fetchall()
+
+        employee_record = {}
+
+        if single_employee_record:
+
+            employee_record = {
+                "id": user_id,
+                "name": single_employee_record[0][0],
+                "login": single_employee_record[0][1],
+                "salary": str(single_employee_record[0][2]),
+            }
+
+
+        cursor.close()
+        # There might need to have one API to show total number of items belong to this user
+        http_status = True
+        return http_responses.http_standard_return(http_status, success_msg=employee_record)
 
     except Exception as e:
         logger.error(e)
