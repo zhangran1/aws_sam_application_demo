@@ -1,11 +1,9 @@
 # -*- coding: utf-8 -*-
 
 import logging
-import json
 from datetime import datetime
 import pytz
 import psycopg2
-from psycopg2 import sql
 import http_responses
 
 from db_config import *

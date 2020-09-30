@@ -1,5 +1,4 @@
 import base64
-import logging
 import decimal
 import database_helper
 

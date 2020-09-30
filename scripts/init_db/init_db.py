@@ -1,11 +1,20 @@
+import sys
+import os
 import logging
-
+from pathlib import Path
 from datetime import datetime
 import psycopg2
 from psycopg2 import sql
-from db_config import *
+
+sys.path.append(str(Path.cwd()))
+
+from apps import db_config
+from tests.unit import test_constants
 
 logger = logging.getLogger()
+
+DB_LOCK_ID = db_config.database_lock_id
+TEST_LOCK = test_constants.SAMPLE_LOCK_ID
 
 
 def make_connection():
@@ -16,7 +25,11 @@ def make_connection():
     Returns:
         Postgrest connection.
     """
-    conn_str = "host={0} dbname={1} user={2} password={3} port={4}".format(endpoint, database, db_user, password, port)
+    conn_str = "host={0} dbname={1} user={2} password={3} port={4}".format(db_config.endpoint,
+                                                                           db_config.database,
+                                                                           db_config.db_user,
+                                                                           db_config.password,
+                                                                           db_config.port)
     conn = psycopg2.connect(conn_str)
     conn.set_client_encoding('UTF8')
     conn.autocommit = True
@@ -33,13 +46,11 @@ def init_lock_table():
         cnx = make_connection()
         cursor = cnx.cursor()
 
-        test_lock = ("INSERT INTO public.db_lock(lock_status, lock_id) VALUES(DEFAULT, '228b27e3-2a74-4849-9eba')" )
-        actual_lock = ("INSERT INTO public.db_lock(lock_status, lock_id) VALUES(DEFAULT, '228b27e3-2a74-4849-9eba-57944c96b07b')")
+        test_lock_query = ("INSERT INTO public.db_lock(lock_status, lock_id) VALUES(DEFAULT, %s)")
+        actual_lock_query = ("INSERT INTO public.db_lock(lock_status, lock_id) VALUES(DEFAULT, %s)")
 
-        cursor.execute(test_lock)
-        cursor.execute(actual_lock)
-
-
+        cursor.execute(test_lock_query, (TEST_LOCK,))
+        cursor.execute(actual_lock_query, (DB_LOCK_ID,))
 
         return False
 
@@ -57,7 +68,6 @@ def init_lock_table():
 if __name__ == "__main__":
     """
     This method is due to out of time, the proper way shall be use database inject to update value which can be done 
-    directly from docker init. This is unusally way to update database which is not preferred
+    directly from docker init. This is not common way to update database which is not preferred
     """
     init_lock_table()
-
