@@ -98,7 +98,7 @@ pytest
 Tests are defined in the `tests/.api` folder in this project. Use PIP to install the [pytest](https://docs.pytest.org/en/latest/) and run unit tests.
 
 ```bash
-pytest
+pytest tests/.api_test/
 ```
 
 ## Future Enhancement
