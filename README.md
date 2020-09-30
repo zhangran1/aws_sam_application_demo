@@ -60,6 +60,11 @@ database_lock_id = ""
 ## Command instruction
 All bash command shall be executed at application's root directory.
 
+You may just execute local_start.sh to automatically perform setup and test
+```bash
+sh local_start.sh
+```
+
 ## Setup database for SAM application.
 Startdb and initialize database schema and insert locks.
 
