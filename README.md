@@ -1,4 +1,4 @@
-# Tech Hunt Take Home Accessment
+# Tech Hunt Take Home Assessment
 
 [![Action Status](https://github.com/zhangran1/tech-hunt-take-home-assessment/workflows/techhunt/badge.svg)](https://github.com/zhangran1/tech-hunt-take-home-assessment/actions)
 
