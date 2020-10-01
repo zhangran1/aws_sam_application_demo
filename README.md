@@ -123,6 +123,40 @@ Tests are defined in the `tests/.api` folder in this project. Use PIP to install
 pytest tests/.api_test/
 ```
 
+API entry points for start docker locally
+USER STORY 1: Upload Users
+```
+http://127.0.0.1:3000/users/upload [POST]  
+```
+
+USER STORY 2: Employee Dashboard Feature
+```
+http://127.0.0.1:3000/users [GET]
+```
+
+USER STORY 3: CRUD Feature (Bonus)
+```
+http://127.0.0.1:3000/users/{id}/ [PATCH]
+http://127.0.0.1:3000/users/{id}/ [GET]
+http://127.0.0.1:3000/users/{id}/ [POST]
+http://127.0.0.1:3000/users/{id}/ [DELETE]
+```
+
+## Known bug
+1. Post to following url without pathparameter will incur error
+```
+http://127.0.0.1:3000/users/
+```
+
+2. Post to following url without query string will incur error
+```
+http://127.0.0.1:3000/users
+```
+
+3. Delete existing user no checking, if there user had been logically deleted user should not be deleted again.
+For example if user `test-1234` exist in database, if two delete operation performed on this user is, both will return 
+http 200. 
+
 ## Future Enhancement
 1. Code refactor for folder structure
 2. More test cases
