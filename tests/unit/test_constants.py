@@ -54,6 +54,7 @@ VALID_REQUIRED_PARAMS_ASC_EMPLOYEE_ID_RECORD = [{'id': 'e00011', 'login': '用�
 VALID_REQUIRED_PARAMS_DESC_LOGIN_RECORD = [{'id': 'e00011', 'login': '用户1', 'name': '用户名1', 'salary': '40'},
                                            {'id': 'test00009', 'login': 'john9', 'name': 'John Smith9',
                                             'salary': '109.5'}]
+GET_ID_BY_USER_RESPONSE = {'id': 'test00001', 'name': 'John Smith', 'login': 'john1', 'salary': '101.5'}
 
 BINARY_VALID_TEST_CASE_1 = "LS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLS0tLTk5NDUwNzIzMzc2MDY1MDM4OTYwNzkyNg0KQ29udGVudC1EaXN" \
                            "wb3NpdGlvbjogZm9ybS1kYXRhOyBuYW1lPSJmaWxlIjsgZmlsZW5hbWU9InZhbGlkX3Rlc3RfY2FzZTFfd2l0aF" \
