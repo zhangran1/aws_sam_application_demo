@@ -5,6 +5,7 @@
 This project contains source code and supporting files for a serverless application that you can deploy with the SAM CLI. It includes the following files and folders to
 fufil the requirments for TechHunt take home assignment.
 
+- docs - Design docs.
 - apps - Code for the application's Lambda function.
 - scripts - Docker Scripts to initialize database and python scripts to insert database value
 - tests/units - Unit tests for the application code. 
