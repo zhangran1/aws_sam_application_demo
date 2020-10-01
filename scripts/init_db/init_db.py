@@ -17,7 +17,11 @@ DB_LOCK_ID = db_config.database_lock_id
 TEST_LOCK = test_constants.SAMPLE_LOCK_ID
 
 
-def make_connection():
+def make_connection(endpoint="localhost",
+                    data_base=db_config.database,
+                    db_user=db_config.db_user,
+                    db_password=db_config.password,
+                    db_port=db_config.port):
     """Connection function to establish database connection. During development, the connection information will be
        hard coded, however during actual deployment to AWS, the connection information will be retrieved from
        other services eg aws secret manager etc.
@@ -25,11 +29,11 @@ def make_connection():
     Returns:
         Postgrest connection.
     """
-    conn_str = "host={0} dbname={1} user={2} password={3} port={4}".format(db_config.endpoint,
-                                                                           db_config.database,
-                                                                           db_config.db_user,
-                                                                           db_config.password,
-                                                                           db_config.port)
+    conn_str = "host={0} dbname={1} user={2} password={3} port={4}".format(endpoint,
+                                                                           data_base,
+                                                                           db_user,
+                                                                           db_password,
+                                                                           db_port)
     conn = psycopg2.connect(conn_str)
     conn.set_client_encoding('UTF8')
     conn.autocommit = True
