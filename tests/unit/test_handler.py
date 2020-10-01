@@ -260,12 +260,12 @@ def test_retrieve_single_user_from_db_none_exist_user(get_user_by_id_none_exist_
     assert data["results"] == RETRIEVE_EMPLOYEE_FAILED
 
 
-def test_get_user_by_id(get_user_by_id_existing_user):
+def test_get_user_by_id(get_user_by_id_existing_user, get_user_by_id_existing_user_db_record):
     ret = get_user_by_id.lambda_handler(get_user_by_id_existing_user, "")
     data = json.loads(ret["body"])
     assert ret["statusCode"] == 200
     assert "results" in ret["body"]
-    assert data["results"] == {'id': 'test00001', 'name': 'John Smith', 'login': 'john1', 'salary': '101.5'}
+    assert data["results"] == get_user_by_id_existing_user_db_record
 
 
 def test_get_user_by_id_invalid_field(get_user_by_id_invalid_id):
