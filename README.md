@@ -78,7 +78,7 @@ sh local_start.sh
 ```
 
 ## Setup database for SAM application Manually.
-Startdb and initialize database schema and insert locks.
+Start database and initialize database schema and insert locks.
 
 ```bash
 pip install -r apps/requirements.txt
