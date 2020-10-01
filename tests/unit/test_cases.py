@@ -352,3 +352,8 @@ def patch_none_exist_user():
         "pathParameters": {"id": NONE_EXIST_EMPLOYEE},
     }
 
+
+@pytest.fixture()
+def get_user_by_id_existing_user_db_record():
+    return {'id': 'test00001', 'name': 'John Smith', 'login': 'john1', 'salary': '101.5'}
+
