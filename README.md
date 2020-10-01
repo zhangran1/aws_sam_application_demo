@@ -57,15 +57,26 @@ database = ""
 database_lock_id = ""
 ```
 
-## Command instruction
+## Setup database for SAM application Automatically.
 All bash command shall be executed at application's root directory.
 
-You may just execute local_start.sh to automatically perform setup and test
+Please kill any existing process
+```
+sh sh_kill_ports.sh
+```
+
+Start docker compose first before start the next script.
+```
+sh start_docker_first.sh
+```
+
+You may just execute local_start.sh to automatically perform `sam build`, database lock setup and test
+
 ```bash
 sh local_start.sh
 ```
 
-## Setup database for SAM application.
+## Setup database for SAM application Manually.
 Startdb and initialize database schema and insert locks.
 
 ```bash
@@ -75,6 +86,12 @@ python scripts/init_db/init_db.py
 ```
 
 ## Use the SAM CLI to build and test locally
+
+Kill any running ports for 3000 and 5432. If you are changing port configuration. Please update accordingly.
+```bash
+sudo kill -9 `sudo lsof -t -i:3000`
+sudo kill -9 `sudo lsof -t -i:5432`
+```
 
 Install python dependencies and Build your application with the `sam build` command.
 
