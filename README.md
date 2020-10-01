@@ -36,8 +36,8 @@ For local testing the database used is postgres and launch in docker container. 
 following configuration in /scripts/docker_scripts/docker-compose.yml
 
     
-    - POSTGRES_USER=tech_hunt_user
-    - POSTGRES_PASSWORD=tech_hunt_password
+    - POSTGRES_USER="Change-it"
+    - POSTGRES_PASSWORD="Change-it"
 
 For testing purpose, please kindly use 5432 as port number. If you change the port number, please 
 change docker expose port mapping accordingly.
