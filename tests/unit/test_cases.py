@@ -357,3 +357,15 @@ def patch_none_exist_user():
 def get_user_by_id_existing_user_db_record():
     return {'id': 'test00001', 'name': 'John Smith', 'login': 'john1', 'salary': '101.5'}
 
+
+@pytest.fixture()
+def patch_user_valid_case():
+    return {
+        "pathParameters": {"id": "z-api-create-user-login"},
+        "body": {
+            "login": "test-patch-z-api-create-user-login",
+            "name": "test-patch-z-api-create-user-name",
+            "salary": 2500.0
+        }
+    }
+

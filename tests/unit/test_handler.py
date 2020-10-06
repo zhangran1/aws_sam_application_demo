@@ -378,3 +378,39 @@ def test_patch_none_exit_user(patch_none_exist_user):
     data = json.loads(ret["body"])
     assert ret["statusCode"] == 400
     assert data["results"] == USER_DOES_NOT_EXIST_CANNOT_PATCH
+
+
+def test_patch_valid_user(create_user_valid_case, patch_user_valid_case):
+    create_ret = create_user.lambda_handler(create_user_valid_case, "")
+    data = json.loads(create_ret["body"])
+    assert create_ret["statusCode"] == 200
+    assert "results" in create_ret["body"]
+    assert data["results"] == VALID_CR_DB_OPERATION
+    # select the record just created
+    select_ret = get_user_by_id.lambda_handler(create_user_valid_case, "")
+    data = json.loads(select_ret["body"])
+    assert select_ret["statusCode"] == 200
+    assert "results" in select_ret["body"]
+    assert data["results"]["id"] == "z-api-create-user-login"
+    assert data["results"]["login"] == "z-api-create-user-login"
+    assert data["results"]["name"] == "z-api-create-user-name"
+    assert data["results"]["salary"] == '1500.0'
+
+    patch_ret = patch_user.lambda_handler(patch_user_valid_case, "")
+    data = json.loads(patch_ret["body"])
+    assert patch_ret["statusCode"] == 200
+
+    select_ret = get_user_by_id.lambda_handler(create_user_valid_case, "")
+    data = json.loads(select_ret["body"])
+    assert select_ret["statusCode"] == 200
+    assert "results" in select_ret["body"]
+    assert data["results"]["id"] == "z-api-create-user-login"
+    assert data["results"]["login"] == "test-patch-z-api-create-user-login"
+    assert data["results"]["name"] == "test-patch-z-api-create-user-name"
+    assert data["results"]["salary"] == '2500.0'
+
+    # physically delete the record to prevent newly insert data affect other test cases
+    delete_ret = db_real_delete_for_testing_purpose(data["results"]["id"])
+    data = json.loads(create_ret["body"])
+    assert delete_ret["statusCode"] == 200
+
