@@ -31,6 +31,14 @@ To use the SAM CLI, you need the following tools.
 * Docker-Compose [Install Docker Compost](https://docs.docker.com/compose/install/)
 * AWS credentials configured
 
+Remarks:
+If you are using python virtual enviroment, please make sure the project started in python3.7 virtual environment.
+If you are using any other virtual enviroment version, random bugs may occur.
+
+```
+python3.7 -m venv py37-venv
+```
+
 ## Setup database
 For local testing the database used is postgres and launch in docker container. For testing purpose, please update the 
 following configuration in /scripts/docker_scripts/docker-compose.yml
