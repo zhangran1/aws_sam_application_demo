@@ -1,5 +1,5 @@
 ## Description
-The Techhunt take home assignment backend was designed based on AWS Serverless model. The original intention is 
+The backend was designed based on AWS Serverless model. The original intention is 
 that eventually the backend application can be deployed to AWS.
 
 ## Design
