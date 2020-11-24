@@ -1,9 +1,8 @@
-# Tech Hunt Take Home Assessment
+# Software Engineering Capabilities Demo
 
-[![Action Status](https://github.com/zhangran1/tech-hunt-take-home-assessment/workflows/techhunt/badge.svg)](https://github.com/zhangran1/tech-hunt-take-home-assessment/actions)
+[![Action Status](https://github.com/zhangran1/software_engineering_demo/workflows/techhunt/badge.svg)](https://github.com/zhangran1/software_engineering_demo/actions)
 
-This project contains source code and supporting files for a serverless application that you can deploy with the SAM CLI. It includes the following files and folders to
-fufil the requirments for TechHunt take home assignment.
+This project contains source code and supporting files for a serverless application that you can deploy with the SAM CLI. It includes the following files and folders
 
 - docs - Design docs.
 - apps - Code for the application's Lambda function.
