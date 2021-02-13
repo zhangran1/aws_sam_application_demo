@@ -1,4 +1,4 @@
-# Software Engineering Capabilities Demo
+# Simple demo for AWS SAM application
 
 [![Action Status](https://github.com/zhangran1/software_engineering_demo/workflows/techhunt/badge.svg)](https://github.com/zhangran1/software_engineering_demo/actions)
 
