@@ -1,6 +1,6 @@
 # Simple demo for AWS SAM application
 
-[![Action Status](https://github.com/zhangran1/software_engineering_demo/workflows/techhunt/badge.svg)](https://github.com/zhangran1/software_engineering_demo/actions)
+[![Action Status](https://github.com/zhangran1/software_engineering_demo/workflows/aws-sam-demo/badge.svg)](https://github.com/zhangran1/software_engineering_demo/actions)
 
 This project contains source code and supporting files for a serverless application that you can deploy with the SAM CLI. It includes the following files and folders
 
